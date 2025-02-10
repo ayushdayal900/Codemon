@@ -1,0 +1,17 @@
+.judge0-file-menu {
+    min-width: 15rem !important;
+}
+
+#judge0-status-line:empty {
+    display: none;
+}
+
+.judge0-hidden, .judge0-style-hidden {
+    display: none !important;
+}
+
+@media (display-mode: standalone) {
+    .judge0-standalone-hidden {
+        display: none !important;
+    }
+}

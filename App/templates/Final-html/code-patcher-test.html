@@ -1,0 +1,239 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Code Patcher</title>
+  <style>
+    body {
+      background-color: #59BDB3;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+      margin: 0;
+      flex-direction: column;
+      text-align: center;
+      overflow-x: hidden;
+      overflow-y: auto;
+    }
+
+    .back-button {
+      position: fixed;
+      top: 20px;
+      left: 20px;
+      z-index: 1000;
+      background: #59BDB3;
+      border: 0;
+    }
+
+    .back-button img {
+      width: 40px;
+      height: 40px;
+      cursor: pointer;
+      background: #59BDB3;
+    }
+
+    .container {
+      position: relative;
+      width: 95%;
+      max-width: 500px;
+      background-color: #2E7D7C;
+      padding: 35px;
+      border-radius: 20px;
+      box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+      margin: 30px auto;
+      text-align: center;
+    }
+
+    .question-box {
+      background: #2aa5a0;
+      padding: 25px;
+      font-size: 20px;
+      font-weight: bold;
+      color: black;
+      border-radius: 10px;
+      margin-bottom: 20px;
+    }
+
+    .prompt-box {
+      background-color: #e0f7fa;
+      padding: 15px;
+      font-size: 18px;
+      border-radius: 5px;
+      box-shadow: inset 0 0 5px rgba(0, 0, 0, 0.2);
+      margin-bottom: 15px;
+    }
+
+    .input-box {
+      width: 100%;
+      padding: 10px;
+      border-radius: 10px;
+      border: none;
+      font-size: 1rem;
+    }
+
+    .submit-button,
+    .next-button {
+      margin-top: 20px;
+      padding: 10px 20px;
+      background-color: orange;
+      border: none;
+      font-size: 18px;
+      cursor: pointer;
+      border-radius: 5px;
+      color: black;
+      font-weight: bold;
+    }
+
+    .title {
+      font-size: 2rem;
+      color: black;
+      text-shadow: 1px 1px 1px black;
+    }
+  </style>
+</head>
+<body>
+  <button class="back-button">
+    <img src="assets/back_button.png" alt="Back" />
+  </button>
+  <div class="container">
+    <h1 class="title">
+      <img src="assets/code_patcher.png" alt="Code Patcher" width="550px" />
+    </h1>
+    <div class="question-box">
+      <p><strong>Concept:</strong> Variables &amp; Datatype</p>
+    </div>
+    <!-- This element will display the question text and input field -->
+    <div class="prompt-box" id="question"></div>
+    <p id="feedback"></p>
+    <button class="submit-button" id="submit-btn">Submit</button>
+    <button class="next-button" id="next-btn" style="display: none;">Next</button>
+    <p>Score: <span id="score">0</span></p>
+  </div>
+
+  <script>
+    document.addEventListener("DOMContentLoaded", async function () {
+      // Global variables for questions, current question index, and score.
+      let questions = [];
+      let currentQuestion = 0;
+      let score = 0;
+
+      // Function to fetch question data from your server.
+      async function fetch_mc_data() {
+        const response = await fetch("http://127.0.0.1:5000/cp_data");
+        if (!response.ok) {
+          throw new Error("HTTP error " + response.status);
+        }
+        return response.json();
+      }
+
+      // Attempt to load questions from the backend.
+      try {
+        const fetchedData = await fetch_mc_data();
+        console.log("Fetched data:", fetchedData);
+
+        // Map the fetched data to your questions array.
+        // We expect each item to have a 'question' and an 'answer' property.
+        if (Array.isArray(fetchedData)) {
+          questions = fetchedData.map((item, index) => ({
+            id: index + 1,
+            text: item.question,
+            answer: item.answer,
+          }));
+        } else {
+          console.error("Fetched data is not an array:", fetchedData);
+        }
+      } catch (error) {
+        console.error("Error fetching data:", error);
+        // Fallback data in case fetching fails.
+        questions = [
+          {
+            id: 1,
+            text: "To store the number 10, you would use a ___ variable.",
+            answer: "int",
+          },
+          {
+            id: 2,
+            text: "The data type for text in JavaScript is ___",
+            answer: "string",
+          },
+          {
+            id: 3,
+            text: "True or false values are stored as ___",
+            answer: "boolean",
+          },
+          {
+            id: 4,
+            text: "A number with a decimal point is stored as a ___",
+            answer: "float",
+          },
+          {
+            id: 5,
+            text: "In JavaScript, you declare a variable using the ___ keyword.",
+            answer: "var",
+          },
+        ];
+      }
+
+      // Function to display the current question.
+      // This version always appends an input field below the question text.
+      function displayQuestion() {
+        if (currentQuestion < questions.length) {
+          const questionText = questions[currentQuestion].text;
+          document.getElementById("question").innerHTML =
+            `<p>${questionText}</p><input type="text" id="answer-input" class="input-box" />`;
+          document.getElementById("feedback").innerHTML = "";
+          document.getElementById("submit-btn").style.display = "inline-block";
+          document.getElementById("next-btn").style.display = "none";
+          document.getElementById("answer-input").focus();
+        }
+      }
+
+      // Function to check the user's answer.
+      function checkAnswer() {
+        const inputElem = document.getElementById("answer-input");
+        if (!inputElem) {
+          console.error("Answer input not found.");
+          return;
+        }
+        const userAnswer = inputElem.value.trim().toLowerCase();
+        const correctAnswer = questions[currentQuestion].answer.toLowerCase();
+        const feedbackElement = document.getElementById("feedback");
+
+        if (userAnswer === correctAnswer) {
+          score +=10;
+          document.getElementById("score").textContent = score;
+          feedbackElement.innerHTML = `<span style="color:#006400;">✓ Correct! The answer is ${questions[currentQuestion].answer}.</span>`;
+          
+        } else {
+          feedbackElement.innerHTML = `<span style="color:red;">✗ Incorrect. The correct answer is ${questions[currentQuestion].answer}.</span>`;
+        }
+
+        document.getElementById("submit-btn").style.display = "none";
+        document.getElementById("next-btn").style.display = "inline-block";
+      }
+
+      // Function to move to the next question.
+      function nextQuestion() {
+        currentQuestion++;
+        if (currentQuestion < questions.length) {
+          displayQuestion();
+        } else {
+          document.getElementById("question").innerHTML = `Game Over! Your final score is ${score} out of ${questions.length}`;
+          document.getElementById("submit-btn").style.display = "none";
+          document.getElementById("next-btn").style.display = "none";
+          fetchAndUpdateUserPoints(score);
+        }
+      }
+
+      // Attach event listeners to the buttons.
+      document.getElementById("submit-btn").addEventListener("click", checkAnswer);
+      document.getElementById("next-btn").addEventListener("click", nextQuestion);
+
+      // Start the game by displaying the first question.
+      displayQuestion();
+    });
+  </script>
+</body>
+</html>

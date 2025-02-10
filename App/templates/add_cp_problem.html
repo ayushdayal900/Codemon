@@ -1,0 +1,62 @@
+{% extends "layout.html" %}
+
+{% block content %}
+<div class="card shadow-sm" style="min-height: 450px;">
+    <div class="card-body p-4">
+      <h2 class="text-center text-primary mb-4">Add code patcher Problem</h2>
+      <form method="POST" action="">
+        {{ form.hidden_tag() }}
+        <fieldset class="form-group">
+          <legend class="border-bottom mb-4 text-center">New Code Patcher Problem</legend>
+
+
+        <!-- description -->
+        <div class="form-group mb-3">
+            {{ form.id.label(class_="form-label") }}
+            {{ form.id(class_="form-control form-control-lg " + ("is-invalid" if form.id.errors else ""), placeholder="id") }}
+            {% if form.id.errors %}
+            <div class="invalid-feedback">
+              {% for error in form.id.errors %}
+                <span>{{ error }}</span>
+              {% endfor %}
+            </div>
+            {% endif %}
+          </div>
+
+          <!-- question -->
+          <div class="form-group mb-3">
+            {{ form.question.label(class_="form-label") }}
+            {{ form.question(class_="form-control form-control-lg " + ("is-invalid" if form.question.errors else ""), placeholder="question") }}
+            {% if form.question.errors %}
+            <div class="invalid-feedback">
+              {% for error in form.question.errors %}
+                <span>{{ error }}</span>
+              {% endfor %}
+            </div>
+            {% endif %}
+          </div>
+
+          <!--  answer-->
+          <div class="form-group mb-3">
+            {{ form.answer.label(class_="form-label") }}
+            {{ form.answer(class_="form-control form-control-lg " + ("is-invalid" if form.answer.errors else ""), placeholder="Answer") }}
+            {% if form.answer.errors %}
+            <div class="invalid-feedback">
+              {% for error in form.answer.errors %}
+                <span>{{ error }}</span>
+              {% endfor %}
+            </div>
+            {% endif %}
+          </div>
+
+
+          <!-- Submit Button -->
+          <div class="d-grid mb-3">
+            {{ form.submit(class_="btn btn-primary btn-lg") }}
+          </div>
+
+        </fieldset>
+      </form>
+    </div>
+  </div>
+{% endblock content %}

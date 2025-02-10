@@ -1,0 +1,219 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Baloo+Bhai+2:wght@400&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="style2.css" />
+    <title>Intermediate Lessons</title>
+    <style>
+      * {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: Arial, sans-serif;
+  }
+  
+  body {
+    font-family: 'Baloo Bhai 2', cursive;
+    background-color: #C5EFE9;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    
+  }
+  
+  .container {
+    width: 100%;
+  }
+  
+  header {
+    background-color: #59BDB3;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-bottom: 20px;
+    padding: 10px;
+    
+  }
+
+  .back-button{
+    display:grid;
+    cursor: pointer;
+    top: 20px;
+    left: 20px;
+    position: absolute;
+    background: #59BDB3;
+    border:0px;
+  }
+  
+.back-button img {
+  width:70px;
+  height: auto;
+  }
+
+  
+  
+  header h1 {
+    font-size: 2rem;
+    color: #FFBE55;
+    text-shadow: 1px 1px #000000;
+    font-family: 'Baloo Bhai 2', cursive;
+    text-align: center;
+    
+  }
+
+   img{
+    width: 900px;
+    height:auto;
+    display: block;
+    
+  }
+  
+  .lessons {
+    max-width: 1500px;
+    margin-left: 15%;
+    margin-right: 15%;
+    display: grid;;
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    gap: 40px;
+    background-color: #D0ECE9;
+    padding:20px;
+  }
+  
+  .lesson {
+    background-color: #7FD3C5;
+    padding: 10px 0px 10px  0px;
+    border-radius: 20px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    text-align: center;
+    justify-content: center;
+
+  }
+  
+  .lesson h2 {
+    font-size: 1.3rem;
+    color: #06181e;
+    margin-bottom: 10px;
+    font-family: 'Baloo Bhai 2', cursive;
+  }
+  
+  .lesson p {
+    font-size: 1.0rem;
+    line-height: 1.2;
+    color: #000000;
+    margin-bottom: 15px;
+  }
+  
+  .content-box {
+    background-color:#C5EFE9 ;
+    width: 250px ;
+    height: 100px;
+    display: flex;
+    padding:10px;
+    margin-left: 12%;
+    margin-bottom: 5%;
+    border-radius: 10px;
+    align-items: center;
+    justify-content: center;
+    position:relative;
+  
+  }
+  .start-btn {
+    background-color: #ffb400;
+    color: rgb(0, 0, 0);
+    border: none;
+    padding: 5px 20px;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 1.0rem;
+    font-weight: 600;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+    font-family: 'Baloo Bhai 2', cursive;
+  }
+  
+  .start-btn:hover {
+    background-color: #ff9a00;
+  }
+  
+  .locked {
+    position: relative;
+    opacity: 0.7;
+  }
+  
+  .locked .locked-overlay {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    font-size: 2rem;
+    color: #999;
+  }
+  .mascot img{
+    height: 100px;
+    width: auto;
+  }
+    </style>
+  </head>
+  <body>
+    <div class="container">
+      <header>
+        <!-- back button functionality -->
+        <a href="{{url_for('lessons')}}" style=" text-decoration: none; color: inherit;">
+          <div class="back-button" onclick="window.location.href=''" style="cursor: pointer;">
+              <img src="{{ url_for('static', filename='assets/back_button.png') }}" alt="Back Button">
+          </div>
+      </a>
+
+        <h1><img src="{{ url_for('static', filename='assets/Intermediate-Lessons.png') }}" alt="Intermediate-Lessons"></h1>
+      </header>
+      <div class="lessons">
+        <div class="lesson">
+          <h2>Lesson 1: Conditional Statements</h2>
+          <div class="content-box">
+          <p>Make your code smarter by adding decision-making skills.</p>
+        </div>
+          <a href="https://docs.google.com/document/d/1-uDvaoIkCi99tJQbMDx5FjkBNeSqAMKklDBNv-YcN48/edit?usp=sharing"> <button class="start-btn">Start Lesson</button></a>
+        </div>
+        <div class="lesson">
+          <h2>Lesson 2 : Loops (For and While)</h2>
+          <div class="content-box">
+          <p>Save time by repeating tasks automatically in code.</p>
+        </div>
+          <button class="start-btn">Start Lesson</button>
+        </div>
+        <div class="lesson">
+          <h2>Lesson 3 : Functions</h2>
+          <div class="content-box">
+          <p>A reusable block of code that performs a specific task</p>
+        </div>
+          <button class="start-btn">Start Lesson</button>
+        </div>
+        <div class="lesson">
+          <h2>Lesson 4: Recursion</h2>
+          <div class="content-box">
+          <p>Break down problems into smaller, repeatable steps.</p>
+          </div>
+          <button class="start-btn">Start Lesson</button>
+        </div>
+        <div class="lesson locked">
+          <h2>Lesson 5: Searching and Sorting</h2>
+          <div class="content-box">
+          <div class="locked-overlay">🔒</div>
+        </div>
+          <button class="start-btn">Start Lesson</button>
+        </div>
+        <div class="lesson locked">
+          <h2>Lesson 6: Error Handling</h2>
+          <div class="content-box">
+          <div class="locked-overlay">🔒</div>
+        </div>
+          <button class="start-btn">Start Lesson</button>
+        </div>
+      </div>
+    </div>
+  </body>
+</html>

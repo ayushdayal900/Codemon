@@ -1,0 +1,88 @@
+{% extends "layout.html" %}
+
+{% block content %}
+<div class="card shadow-sm" style="min-height: 450px;">
+    <div class="card-body p-4">
+      <h2 class="text-center text-primary mb-4">Add BB Problem</h2>
+      <form method="POST" action="">
+        {{ form.hidden_tag() }}
+        <fieldset class="form-group">
+          <legend class="border-bottom mb-4 text-center">New BB Problem</legend>
+
+
+        <!-- description -->
+        <div class="form-group mb-3">
+            {{ form.id.label(class_="form-label") }}
+            {{ form.id(class_="form-control form-control-lg " + ("is-invalid" if form.id.errors else ""), placeholder="id") }}
+            {% if form.id.errors %}
+            <div class="invalid-feedback">
+              {% for error in form.id.errors %}
+                <span>{{ error }}</span>
+              {% endfor %}
+            </div>
+            {% endif %}
+          </div>
+
+          <!-- description -->
+          <div class="form-group mb-3">
+            {{ form.description.label(class_="form-label") }}
+            {{ form.description(class_="form-control form-control-lg " + ("is-invalid" if form.description.errors else ""), placeholder="description") }}
+            {% if form.description.errors %}
+            <div class="invalid-feedback">
+              {% for error in form.description.errors %}
+                <span>{{ error }}</span>
+              {% endfor %}
+            </div>
+            {% endif %}
+          </div>
+
+          <!-- buggy code -->
+          <div class="form-group mb-3">
+            {{ form.buggyCode.label(class_="form-label") }}
+            {{ form.buggyCode(class_="form-control form-control-lg " + ("is-invalid" if form.buggyCode.errors else ""), placeholder="Enter buggy code") }}
+            {% if form.buggyCode.errors %}
+            <div class="invalid-feedback">
+              {% for error in form.buggyCode.errors %}
+                <span>{{ error }}</span>
+              {% endfor %}
+            </div>
+            {% endif %}
+          </div>
+
+          <!-- correct soln -->
+          <div class="form-group mb-3">
+            {{ form.correctSolution.label(class_="form-label") }}
+            {{ form.correctSolution(class_="form-control form-control-lg " + ("is-invalid" if form.correctSolution.errors else ""), placeholder="Enter correct soln ") }}
+            {% if form.correctSolution.errors %}
+            <div class="invalid-feedback">
+              {% for error in form.correctSolution.errors %}
+                <span>{{ error }}</span>
+              {% endfor %}
+            </div>
+            {% endif %}
+          </div>
+
+
+          <!-- Subject Id Field -->
+          <div class="form-group mb-3">
+            {{ form.hints.label(class_="form-label") }}
+            {{ form.hints(class_="form-control form-control-lg " + ("is-invalid" if form.hints.errors else ""), placeholder="Enter Hints ") }}
+            {% if form.hints.errors %}
+            <div class="invalid-feedback">
+              {% for error in form.hints.errors %}
+                <span>{{ error }}</span>
+              {% endfor %}
+            </div>
+            {% endif %}
+          </div>
+
+          <!-- Submit Button -->
+          <div class="d-grid mb-3">
+            {{ form.submit(class_="btn btn-primary btn-lg") }}
+          </div>
+
+        </fieldset>
+      </form>
+    </div>
+  </div>
+{% endblock content %}

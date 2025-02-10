@@ -1,0 +1,197 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Leaderboard</title>
+    <link rel="stylesheet" href="style.css" />
+  </head>
+  <style>
+    /* Reset and Body Styles */
+body {
+    margin: 0;
+    font-family: 'Arial', sans-serif;
+    background-color: #59BDB3;
+}
+
+.container {
+    background-color: #59BDB3;
+    border-radius: 15px;
+    text-align: center;
+}
+
+/* Back Button */
+.back-button img {
+    width:70px;
+    position: fixed;
+    cursor: pointer;
+    top: 20px;
+    left: 20px;
+    z-index: 1000;
+    background: #59BDB3;
+    border:0px;
+  }
+  
+
+.back-button span {
+    color: #0078d7;
+    font-weight: bold;
+}
+
+/* Title */
+.title {
+    font-size: 36px;
+    font-weight: bold;
+    color: #59BDB3;
+    margin-bottom: 15px;
+}
+
+.title img{
+    width:700px;
+    height:auto;
+}
+
+/* Leaderboard Button */
+.leaderboard-btn {
+    background-color: #ffa500;
+    color: rgb(0, 0, 0);
+    font-size: 18px;
+    font-weight: bold;
+    padding: 10px 20px;
+    border: none;
+    border-radius: 8px;
+    margin-bottom: 20px;
+    cursor: pointer;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.4);
+    transition: transform 0.2s ease;
+}
+
+.leaderboard-btn:hover {
+    transform: scale(1.05);
+}
+
+.leaderboard-container{
+    margin-left: 10%;
+    margin-right: 10%;
+    background-color:#2EADAD ;
+    padding:20px;
+    border-radius: 20px;
+}
+
+/* Table Styles */
+.table-container {
+    overflow-x: auto;
+    margin: 0 auto;
+}
+
+table {
+    width: 100%;
+    border-collapse: collapse;
+    background-color: #e0f7fa;
+    border-radius: 10px;
+    overflow: hidden;
+}
+
+table th,
+table td {
+    text-align: left;
+    padding: 15px;
+    border-bottom: 1px solid #b2ebf2;
+    font-size:1.0rem;
+}
+
+thead {
+    background-color: #a1e8e1;
+    color: rgb(0, 0, 0);
+    font-size: 18px;
+}
+
+tbody tr:nth-child(odd) {
+    background-color: #ffffff;
+}
+
+tbody tr:nth-child(even) {
+    background-color: #f0fdfd;
+}
+
+tbody tr:hover {
+    background-color: #b2ebf2;
+}
+
+  </style>
+  <body>
+
+    <!-- back button functionality -->
+    <a href="{{url_for('router')}}" style=" text-decoration: none; color: inherit;">
+      <div class="back-button" onclick="window.location.href=''" style="cursor: pointer;">
+          <img src="{{ url_for('static', filename='assets/back_button.png') }}" alt="Back Button">
+      </div>
+  </a>
+
+    <div class="container">
+      <div class="back-button">
+      </div>
+      <div class="title"><img src="{{ url_for('static', filename='assets/Leaderboard.png') }}" alt= Leaderboard></div>
+      <div class="leaderboard-container">
+      <button class="leaderboard-btn">Leaderboard</button>
+      <div class="table-container">
+        <table>
+          <thead>
+            <tr>
+              <th>Sr. No.</th>
+              <th>Username</th>
+              <th>Level</th>
+              <th>XP Points</th>
+              <th>Overall Progress</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>1</td>
+              <td>lost_daya</td>
+              <td>8</td>
+              <td>989 Points</td>
+              <td>Great</td>
+            </tr>
+            <tr>
+              <td>2</td>
+              <td>thala007</td>
+              <td>8</td>
+              <td>975 Points</td>
+              <td>Great</td>
+            </tr>
+            <tr>
+              <td>3</td>
+              <td>_king_p</td>
+              <td>7</td>
+              <td>689 Points</td>
+              <td>Good</td>
+            </tr>
+            <tr>
+              <td>4</td>
+              <td>rahul_osk</td>
+              <td>7</td>
+              <td>591 Points</td>
+              <td>Medium</td>
+            </tr>
+            <tr>
+              <td>5</td>
+              <td>Gamer_king</td>
+              <td>3</td>
+              <td>238 Points</td>
+              <td>Low</td>
+            </tr>
+            <tr>
+              <td>6</td>
+              <td>aisuencis</td>
+              <td>3</td>
+              <td>210 Points</td>
+              <td>Low</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+      </div>
+    </div>
+  </body>
+</html>

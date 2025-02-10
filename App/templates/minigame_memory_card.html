@@ -1,0 +1,254 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Memory Card Game: Coding Concepts</title>
+  <style>
+    /* Basic Reset & Body Styles */
+    body {
+    background-color: #59BDB3;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    margin: 0;
+    flex-direction: column;
+    text-align: center;
+    overflow-x: hidden;
+    overflow-y: auto; 
+}
+    h1 {
+      margin-bottom: 10px;
+    }
+    .scoreboard {
+      font-size: 24px;
+      margin-bottom: 20px;
+    }
+    /* Grid Container for Cards */
+    .grid-container {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+      gap: 15px;
+      max-width: 800px;
+      margin: 0 auto;
+    }
+    /* Card Styles */
+    .card {
+      width: 150px;
+      height: 100px;
+      perspective: 1000px;
+      cursor: pointer;
+    }
+    .card-inner {
+      position: relative;
+      width: 100%;
+      height: 100%;
+      transition: transform 0.6s;
+      transform-style: preserve-3d;
+    }
+    /* When card is flipped, rotate inner card */
+    .card.flipped .card-inner {
+      transform: rotateY(180deg);
+    }
+    .card-face {
+      position: absolute;
+      width: 100%;
+      height: 100%;
+      backface-visibility: hidden;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      border: 2px solid #333;
+      border-radius: 8px;
+      box-sizing: border-box;
+    }
+    /* Front face shows a "?" */
+    .card-face.front {
+      background-color: #333;
+      color: #fff;
+      font-size: 32px;
+    }
+    /* Back face shows the card content */
+    .card-face.back {
+      background-color: #fff;
+      color: #333;
+      transform: rotateY(180deg);
+      padding: 5px;
+      font-size: 14px;
+    }
+    /* Game Over Message */
+    .game-over {
+      font-size: 28px;
+      margin-top: 20px;
+      color: #333;
+    }
+  </style>
+  <script src="points_update.js"></script>
+</head>
+<body>
+  <h1>Memory Card Game</h1>
+  <div class="scoreboard">Score: <span id="score">0</span></div>
+  <div class="grid-container" id="grid"></div>
+  <div class="game-over" id="game-over" style="display: none;"></div>
+  <div id="data"></div>
+
+  <script>
+    // Ensure the DOM is fully loaded before executing game logic.
+    document.addEventListener("DOMContentLoaded", async function() {
+
+      // Function to fetch multiple-choice data from the server.
+      async function fetch_mc_data() {
+        const response = await fetch('http://127.0.0.1:5000/mc_data');
+        if (!response.ok) {
+          throw new Error("HTTP error " + response.status);
+        }
+        return response.json();
+      }
+
+      try {
+        // Fetch the data and log it.
+        const fetchedData = await fetch_mc_data();
+        console.log("Fetched data:", fetchedData);
+
+        // Ensure the fetched data is an array and transform it into our pairs array.
+        let pairs = [];
+        if (Array.isArray(fetchedData)) {
+          pairs = fetchedData.map((item, index) => ({
+            id: index + 1,          // Assign sequential IDs starting from 1.
+            concept: item.concept,
+            description: item.description
+          }));
+        } else {
+          console.error("Fetched data is not an array:", fetchedData);
+          return;
+        }
+
+        // Create a cards array where each pair yields two cards:
+        // one for the concept and one for the description.
+        let cards = [];
+        pairs.forEach(pair => {
+          cards.push({
+            pairId: pair.id,
+            type: 'concept',
+            content: pair.concept
+          });
+          cards.push({
+            pairId: pair.id,
+            type: 'description',
+            content: pair.description
+          });
+        });
+
+        // Fisher-Yates shuffle algorithm to randomize card order.
+        function shuffle(array) {
+          for (let i = array.length - 1; i > 0; i--) {
+            const j = Math.floor(Math.random() * (i + 1));
+            [array[i], array[j]] = [array[j], array[i]];
+          }
+          return array;
+        }
+        cards = shuffle(cards);
+
+        // Get references to DOM elements.
+        const grid = document.getElementById('grid');
+        const scoreEl = document.getElementById('score');
+        const gameOverEl = document.getElementById('game-over');
+
+        let score = 0;
+        let flippedCards = [];
+        let matchedCount = 0;
+
+        // Update score display.
+        function updateScore(points) {
+          score += points;
+          scoreEl.innerText = score;
+        }
+
+        // Create a card element.
+        function createCard(cardData) {
+          const card = document.createElement('div');
+          card.classList.add('card');
+          card.dataset.pairId = cardData.pairId;
+          card.dataset.type = cardData.type;
+          card.dataset.content = cardData.content;
+
+          const cardInner = document.createElement('div');
+          cardInner.classList.add('card-inner');
+
+          const cardFront = document.createElement('div');
+          cardFront.classList.add('card-face', 'front');
+          cardFront.innerText = "?"; // Hidden state
+
+          const cardBack = document.createElement('div');
+          cardBack.classList.add('card-face', 'back');
+          cardBack.innerText = cardData.content; // Revealed state
+
+          cardInner.appendChild(cardFront);
+          cardInner.appendChild(cardBack);
+          card.appendChild(cardInner);
+
+          // Add click event listener for flipping the card.
+          card.addEventListener('click', () => {
+            // Ignore clicks on an already flipped card or when two cards are open.
+            if (card.classList.contains('flipped') || flippedCards.length === 2) {
+              return;
+            }
+            flipCard(card);
+          });
+
+          return card;
+        }
+
+        function flipCard(card) {
+          card.classList.add('flipped');
+          flippedCards.push(card);
+          if (flippedCards.length === 2) {
+            checkForMatch();
+          }
+        }
+
+        // Check if the two flipped cards form a valid pair.
+        function checkForMatch() {
+          const [card1, card2] = flippedCards;
+          // A valid match requires the same pairId but different types.
+          if (card1.dataset.pairId === card2.dataset.pairId && card1.dataset.type !== card2.dataset.type) {
+            updateScore(10); // Award 10 points.
+            // Disable further clicks on these cards.
+            card1.style.pointerEvents = 'none';
+            card2.style.pointerEvents = 'none';
+            matchedCount += 2;
+            flippedCards = [];
+            // When all cards have been matched, the game is over.
+            if (matchedCount === cards.length) {
+              gameOver();
+            }
+          } else {
+            // Not a match: flip cards back over after a short delay.
+            setTimeout(() => {
+              card1.classList.remove('flipped');
+              card2.classList.remove('flipped');
+              flippedCards = [];
+            }, 1000);
+          }
+        }
+
+        // Display the game over message.
+        function gameOver() {
+          gameOverEl.style.display = 'block';
+          gameOverEl.innerText = "Game Over! Your final score is: " + score;
+          fetchAndUpdateUserPoints(score)
+        }
+
+        // Render all cards to the grid.
+        cards.forEach(cardData => {
+          const cardElement = createCard(cardData);
+          grid.appendChild(cardElement);
+        });
+
+      } catch (error) {
+        console.error("Error fetching or processing data:", error);
+      }
+    });
+  </script>
+</body>
+</html>

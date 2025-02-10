@@ -1,0 +1,71 @@
+{% extends "layout.html" %}
+{% block content %}
+
+<div class="container mt-5">
+  <div class="row justify-content-center">
+    <div class="col-md-6">
+      <!-- Card with Increased Height -->
+      <div class="card shadow-" style="min-height: 450px;">
+        <div class="card-body p-4" style="background-color: #186361; border-radius: 10px;">
+          <h2 class="text-center text-primary mb-4"><img src="{{ url_for('static', filename='assets/login.png') }}" style="width: 250px;"></h2>
+          <form method="POST" action="">
+            {{ form.hidden_tag() }}
+            <fieldset class="form-group">
+              <legend class="border-bottom mb-4 text-center" >Welcome Back</legend>
+
+              <!-- Email or Username Field -->
+              <div class="form-group mb-3">
+                {{ form.email_username.label(class_="form-label") }}
+                {{ form.email_username(class_="form-control form-control-lg " + ("is-invalid" if form.email_username.errors else ""), placeholder="Enter your email or username") }}
+                {% if form.email_username.errors %}
+                <div class="invalid-feedback">
+                  {% for error in form.email_username.errors %}
+                    <span>{{ error }}</span>
+                  {% endfor %}
+                </div>
+                {% endif %}
+              </div>
+
+              <!-- Password Field -->
+              <div class="form-group mb-3">
+                {{ form.password.label(class_="form-label") }}
+                {{ form.password(class_="form-control form-control-lg " + ("is-invalid" if form.password.errors else ""), placeholder="Enter your password") }}
+                {% if form.password.errors %}
+                <div class="invalid-feedback">
+                  {% for error in form.password.errors %}
+                    <span>{{ error }}</span>
+                  {% endfor %}
+                </div>
+                {% endif %}
+              </div>
+
+              <!-- Remember Me Checkbox -->
+              <div class="form-check mb-3">
+                {{ form.remember_me(class_="form-check-input", id="remember_me") }}
+                {{ form.remember_me.label(class_="form-check-label", for="remember_me") }}
+              </div>
+
+              <!-- Submit Button -->
+              <div class="d-grid mb-3">
+                {{ form.submit(class_="btn btn-primary btn-lg") }}
+              </div>
+
+              <!-- Forgot Password Link -->
+              <div class="text-center mb-2">
+                <a href="#" class="text-muted">Forgot Password?</a>
+              </div>
+            </fieldset>
+          </form>
+        </div>
+      </div>
+
+      <!-- Sign Up Link -->
+      <div class="text-center mt-3">
+        <small class="text-muted">
+          Need An Account? <a href="{{ url_for('register') }}" class="text-primary fw-bold">Sign Up</a>
+        </small>
+      </div>
+    </div>
+  </div>
+</div>
+{% endblock content %}

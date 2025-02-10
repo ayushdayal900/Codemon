@@ -1,0 +1,262 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Pokémon Battle</title>
+  <style>
+    body {
+      margin: 0;
+      background: linear-gradient(45deg, #304878, #182040);
+      height: 100vh;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      font-family: Arial, sans-serif;
+      color: white;
+    }
+
+    .battle-container {
+      width: 800px;
+      height: 600px;
+      position: relative;
+      background: url('https://images-wixmp-ed30a86b8c4ca887773594c2.wixmp.com/f/f0f2380b-7f3d-4cd4-9f3f-915d1eb372dd/dewqshv-9e0c9b1a-0d1f-4b5e-9f5a-0b7f0d8a4d94.png?token=eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJ1cm46YXBwOjdlMGQxODg5ODIyNjQzNzNhNWYwZDQxNWVhMGQyNmUwIiwiaXNzIjoidXJuOmFwcDo3ZTBkMTg4OTgyMjY0MzczYTVmMGQ0MTVlYTBkMjZlMCIsIm9iaiI6W1t7InBhdGgiOiJcL2ZcL2YwZjIzODBiLTdmM2QtNGNkNC05ZjNmLTkxNWQxZWIzNzJkZFwvZGV3cXNodi05ZTBjOWIxYS0wZDFmLTRiNWUtOWY1YS0wYjdmMGQ4YTRkOTQucG5nIn1dXSwiYXVkIjpbInVybjpzZXJ2aWNlOmZpbGUuZG93bmxvYWQiXX0.4LqyfO2xHvY3H1XvM1N8jZ3q3Q6m9QwZ3q3Q6m9QwZ3q') center/cover;
+    }
+
+    /* Pokémon images */
+    .pokemon {
+      position: absolute;
+      width: 200px;
+      height: 200px;
+    }
+    .player-pokemon {
+      bottom: 200px;
+      left: 50px;
+    }
+    .opponent-pokemon {
+      top: 50px;
+      right: 50px;
+      transform: scaleX(-1);
+    }
+
+    /* Health Bars */
+    .health-bar {
+      position: absolute;
+      width: 200px;
+      background: #444;
+      border: 3px solid #000;
+      border-radius: 5px;
+      padding: 2px;
+    }
+    .health-fill {
+      height: 20px;
+      background: linear-gradient(90deg, #ff0000, #ff8000);
+      transition: width 0.3s ease;
+    }
+    #opponent-health {
+      top: 20px;
+      right: 260px;
+    }
+    /* Player's health bar positioned near the player's Pokémon */
+    #player-health {
+      bottom: 370px;
+      left: 50px;
+    }
+
+    /* Question Box */
+    .question-box {
+      position: absolute;
+      bottom: 10px; /* Reduced to lower it */
+      left: 50%;
+      transform: translateX(-50%);
+      width: 90%; /* Make it responsive */
+      background: rgba(0, 0, 0, 0.9);
+      border: 4px solid #fff;
+      border-radius: 10px;
+      padding: 25px; /* Increased padding for spacing */
+  }
+    .question-text {
+      font-size: 1.2em;
+      margin-bottom: 15px;
+      color: #fff;
+      text-shadow: 2px 2px #000;
+    }
+    .options-container {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 10px;
+    }
+    .option-btn {
+      background: #3068b0;
+      color: white;
+      border: 2px solid #fff;
+      border-radius: 5px;
+      padding: 10px;
+      cursor: pointer;
+      font-size: 1em;
+      transition: all 0.2s;
+    }
+    .option-btn:hover {
+      background: #4090f0;
+      transform: scale(1.05);
+    }
+    .option-btn.correct {
+      background: #4CAF50 !important;
+    }
+    .option-btn.wrong {
+      background: #f44336 !important;
+    }
+    .battle-message {
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      background: rgba(0, 0, 0, 0.9);
+      padding: 20px 40px;
+      border-radius: 10px;
+      font-size: 1.5em;
+      text-align: center;
+      display: none;
+    }
+  </style>
+</head>
+<body>
+  <div class="battle-container">
+    <!-- Opponent Health Bar -->
+    <div class="health-bar" id="opponent-health">
+      <div class="health-fill" style="width: 100%"></div>
+    </div>
+    <!-- Player Health Bar -->
+    <div class="health-bar" id="player-health">
+      <div class="health-fill" style="width: 100%"></div>
+    </div>
+
+    <!-- Pokémon Images -->
+    <img src="https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/official-artwork/12.png" 
+         class="pokemon opponent-pokemon" alt="Butterfree">
+    <img src="https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/official-artwork/6.png" 
+         class="pokemon player-pokemon" alt="Charizard">
+
+    <!-- Question and Options -->
+    <div class="question-box">
+      <div class="question-text" id="question">How to convert StringBuilder to String in Java?</div>
+      <div class="options-container" id="options">
+        <button class="option-btn" data-answer="sb.toString()">sb.toString()</button>
+        <button class="option-btn" data-answer="sb.ToString()">sb.ToString()</button>
+        <button class="option-btn" data-answer="String(sb)">String(sb)</button>
+        <button class="option-btn" data-answer="sb.string()">sb.string()</button>
+      </div>
+    </div>
+
+    <div class="battle-message" id="battle-message"></div>
+  </div>
+
+  <script>
+    const questions = [
+      {
+        question: "How to convert StringBuilder to String in Java?",
+        answers: ["sb.toString()", "sb.ToString()", "String(sb)", "sb.string()"],
+        correct: "sb.toString()"
+      },
+      {
+        question: "Which HTML tag is used for a paragraph?",
+        answers: ["<p>", "<para>", "<paragraph>", "<text>"],
+        correct: "<p>"
+      },
+      {
+        question: "CSS property for text color?",
+        answers: ["color", "text-color", "font-color", "tint"],
+        correct: "color"
+      }
+    ];
+
+    let currentQuestion = 0;
+    let opponentHealth = 100;
+    let playerHealth = 100;
+    const opponentHealthFill = document.querySelector('#opponent-health .health-fill');
+    const playerHealthFill = document.querySelector('#player-health .health-fill');
+    const messageElement = document.getElementById('battle-message');
+    const options = document.querySelectorAll('.option-btn');
+
+    // Attach click event for each option button
+    options.forEach(btn => {
+      btn.addEventListener('click', function() {
+        const answer = this.dataset.answer;
+        checkAnswer(answer, this);
+      });
+    });
+
+    function checkAnswer(answer, button) {
+      const correct = questions[currentQuestion].correct;
+      options.forEach(btn => btn.disabled = true);
+
+      if (answer === correct) {
+        opponentHealth -= 33.33;  // Correct answer damages opponent
+        button.classList.add('correct');
+        showMessage('Effective!', '#4CAF50');
+        setTimeout(() => {
+          opponentHealthFill.style.width = `${opponentHealth}%`;
+          button.classList.remove('correct');
+          if (opponentHealth <= 0) {
+            endBattle(true);
+          } else {
+            nextQuestion();
+          }
+        }, 1500);
+      } else {
+        playerHealth -= 20;  // Wrong answer damages player
+        if (playerHealth < 0) playerHealth = 0;
+        playerHealthFill.style.width = playerHealth + "%";
+        button.classList.add('wrong');
+        showMessage('Wrong! Try Again!', '#f44336');
+        setTimeout(() => {
+          button.classList.remove('wrong');
+          if (playerHealth <= 0) {
+            endBattle(false);
+          } else {
+            options.forEach(btn => btn.disabled = false);
+          }
+        }, 1500);
+      }
+    }
+
+    // Show a temporary battle message
+    function showMessage(text, color) {
+      messageElement.style.display = 'block';
+      messageElement.textContent = text;
+      messageElement.style.color = color;
+      setTimeout(() => messageElement.style.display = 'none', 1500);
+    }
+
+    // Move on to the next question
+    function nextQuestion() {
+      currentQuestion = (currentQuestion + 1) % questions.length;
+      document.getElementById('question').textContent = questions[currentQuestion].question;
+      options.forEach((btn, index) => {
+        btn.textContent = questions[currentQuestion].answers[index];
+        btn.dataset.answer = questions[currentQuestion].answers[index];
+        btn.disabled = false;
+      });
+    }
+
+
+    // End the battle and ask for replay
+    function endBattle(won) {
+      showMessage(won ? 'You Win!' : 'You Lose!', won ? '#4CAF50' : '#f44336');
+      options.forEach(btn => btn.disabled = true);
+      setTimeout(() => {
+        if (confirm(won ? 'Congratulations! Play again?' : 'Try again?')) {
+          location.reload();
+        }
+      }, 2000);
+    }
+
+    // Initialize first question
+    document.getElementById('question').textContent = questions[0].question;
+    options.forEach((btn, index) => {
+      btn.textContent = questions[0].answers[index];
+      btn.dataset.answer = questions[0].answers[index];
+    });
+  </script>
+</body>
+</html>

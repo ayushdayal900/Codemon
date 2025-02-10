@@ -1,0 +1,223 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Poke-Dex</title>
+    <!-- <link rel="stylesheet" href="style.css"> -->
+</head>
+<style>
+    body {
+        width: 100vw;
+        height: 100vh;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        background-color: #27839F;
+        overflow-x: hidden ;
+        overflow-y: hidden ;
+    }
+
+    .back-button {
+        position: fixed;
+        top: 20px;
+        left: 20px;
+        z-index: 1000;
+        background: #27839F;
+        border: 0px;
+    }
+
+    .back-button img {
+        width: 40px;
+        height: 40px;
+        cursor: pointer;
+        background: #27839F;
+    }
+
+    .button-chatbot {
+        position: fixed;
+        bottom: 20px;
+        right: 20px;
+        z-index: 1000;
+        background: #2E7D7C;
+        border: 0px;
+        background: none;
+    }
+
+    .button-chatbot img {
+        width: 50px;
+        height: 50px;
+        cursor: pointer;
+        background: #2E7D7C;
+        background: none;
+    }
+
+    .button-chatbot button {
+        background: none;
+        border: none;
+    }
+
+    .pokedex_container {
+        display: flex;
+        width: 90%;
+        height: 90%;
+        max-width: 1200px;
+        background-color: #D97746;
+        border-radius: 10px;
+        overflow: hidden;
+    }
+
+    .concept-dex {
+        width: 50%;
+        background-color: #F4C38E;
+        padding: 20px;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        position: relative;
+    }
+
+    .section {
+        background-color: #FFE4C4;
+        padding: 15px;
+        margin: 5px 0;
+        border-radius: 10px;
+        width: 90%;
+        height: auto;
+        text-align: center;
+    }
+
+    .pokemon-image {
+        width: 80px;
+        height: auto;
+    }
+
+    .pokemon-type {
+        background-color: rgb(251, 243, 1);
+        display: inline-block;
+        padding: 5px 10px;
+        border-radius: 10px;
+        margin-top: 5px;
+        justify-self: baseline;
+    }
+
+    .badges img {
+        width: 40px;
+        margin: 5px;
+    }
+
+    .chatbot {
+        width: 50%;
+        background-color: #A5C8E9;
+        padding: 20px;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+    }
+
+    .chatbox {
+        width: 90%;
+        height: 80%;
+        background-color: #D3E3FC;
+        border-radius: 10px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        margin-top: 20px;
+    }
+
+    .chat-hello {
+        font-size: 22px;
+        font-weight: bold;
+    }
+
+    .chat_bottom {
+        display: inline-block;
+        text-align: center;
+    }
+
+    .chat_bottom label {
+        display: inline-block;
+        margin-right: 35px;
+        font-weight: bold;
+    }
+
+    .chat_bottom input {
+        display: inline-block;
+        padding: 5px;
+        border: 1px solid #ccc;
+        border-radius: 5px;
+    }
+
+    #chat-input {
+        width: 90%;
+        padding: 10px;
+        font-size: 16px;
+        border: 1px solid #ccc;
+        border-radius: 5px;
+        margin-top: 10px;
+    }
+
+    .pokedex_ul {
+        list-style-type: none;
+        padding: 0;
+    }
+
+    .pokedex_ul li {
+        background: #FFD700;
+        margin: 5px 0;
+        padding: 5px;
+        border-radius: 5px;
+    }
+
+    .chat_button {
+        /* margin-top: 0%; */
+        position: absolute;
+        bottom: 0%;
+    }
+</style>
+
+<body>
+
+    <!-- back button functionality -->
+    <a href="{{url_for('router')}}" style=" text-decoration: none; color: inherit;">
+        <div class="back-button" onclick="window.location.href=''" style="cursor: pointer;">
+            <img src="{{ url_for('static', filename='assets/back_button.png') }}" alt="Back Button">
+        </div>
+    </a>
+
+
+
+    <div class="pokedex_container">
+        <div class="concept-dex">
+            <h1 class="title">Question</h1>
+
+            <div class="section">
+                <h2>Pokemon to unlock</h2>
+                <img src="{{ url_for('static', filename='assets/Byte Sprite.png') }}" alt="Pokemon" class="pokemon-image" aria-placeholder="Pichu"
+                    style="width:150px;">
+            </div>
+
+            <div class="section">
+                <p style="font-size: larger; font-weight: bolder;">Level: Easy:</p>
+                <p><code style="font-size: larger;"> <b>Question</b> - Given an array of integers nums and an integer target, return indices of the two numbers such that they add up to target.
+
+                    You may assume that each input would have exactly one solution, and you may not use the same element twice.
+                    
+                    You can return the answer in any order.</code></p>
+                <p>Id : <b>192</b></p>
+                <p>Accuracy: <b>87.90%</b></p>
+            </div>
+        </div>
+
+        <div class="chatbot">
+            <h1 class="title">Terminal</h1>
+            <div class="chatbox">
+                <a href="https://terminal-codemon.web.app/"><button style="height: 40px; border-radius: 10px; cursor: pointer;"><b>Click For Terminal</b></button></a>
+            </div>
+        </div>
+    </div>
+</body>
+
+</html>

@@ -1,0 +1,260 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Codemon</title>
+    <link rel="stylesheet" href="style.css" />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Baloo+Bhai+2:wght@400&display=swap"
+      rel="stylesheet"
+    />
+  </head>
+  <style>
+    body {
+  font-family: 'Baloo Bhai 2', cursive;
+  background-color: #7FD3C5;
+  margin: 0;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+
+header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  width: 100%;
+  background-color: #59BDB3;
+  color: white;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+  /* padding: 10px;  */
+}
+
+.header-left {
+  display: flex;
+  align-items: center;
+  gap: 20px;
+  margin-left: 3%; 
+}
+
+.score button {
+  background-color: #FFBD54;
+  color: black;
+  width: 80px;
+  height: 50px;
+  border-radius: 10px;
+  font-size: 1.5rem;
+  display: flex;
+  align-items: center;
+  justify-content: center; 
+  border:none;
+}
+
+.xp button {
+  background-color: #FFBD54;
+  color: black;
+  width: 150px;
+  height: 50px;
+  border-radius: 10px;
+  font-size: 1.5rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border:none; 
+}
+
+.title {
+  text-align: center;
+  margin-top: 20px; 
+}
+
+.title h1 {
+  font-size: 2rem;
+  margin: 0;
+  color: #ffcc00;
+}
+
+.title img {
+  width: 600px;
+  height: auto;
+  display: block; 
+  margin: 0 auto; 
+}
+
+#SubHead img {
+  width: 300px;
+  height: auto;
+  display: block; 
+  margin: 0 auto;
+}
+
+.title p {
+  margin: 0;
+  font-size: 1rem;
+  color: #fff;
+}
+
+.header-right {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin-right: 2%;
+}
+
+.trainer-icon {
+  width: 60px;
+  height: 60px;
+  border-radius: 50%;
+  border: 2px solid white;
+}
+
+.logout-btn {
+  background-color: #FFBD54;
+  width: 150px;
+  height: 50px;
+  border: none;
+  padding: 5px 15px;
+  border-radius: 10px;
+  cursor: pointer;
+  font-size: 1.5rem;
+}
+
+main {
+  display: flex;
+  width: 100%;
+  margin-top: 20px;
+  justify-content: center;
+}
+
+.sidebar, .sidebar-right {
+  width: 20%;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.sidebar button, .sidebar-right button {
+  background-color: #189593;
+  height: 50px;
+  width: 180px;
+  color: white;
+  border: none;
+  cursor: pointer;
+  border-radius: 5px;
+  font-size: 0.9rem;
+  text-align: left;
+  padding-left: 10px; 
+  box-sizing: border-box;
+}
+
+.sidebar {
+  margin-left: 2%;
+}
+
+.sidebar button {
+  margin-right: auto; 
+}
+
+.sidebar-right button {
+  font-size: 1.2rem;
+  text-align: center;
+  height: 72.5px;
+  margin-left: auto; 
+  width: 200px; 
+}
+
+.content {
+  width: 55%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 20px;
+}
+
+.battle-img {
+  margin-top:0;
+  width: 100%;
+  border-radius: 10px;
+
+}
+
+.play-btn {
+  background-color: #f4ad3a;
+  color: black;
+  border: none;
+  padding: 10px 20px;
+  border-radius: 10px;
+  font-size: 1.5rem;
+  cursor: pointer;
+}
+
+.b {
+    display: flex;
+    flex-direction: column; /* Stack buttons vertically */
+    gap: 15px; /* Adds space between the buttons */
+    margin-left: 120px; /* Keeps the left margin */
+    align-items: center; /* Centers the buttons */
+}
+
+.b a {
+    width: 100%; /* Makes sure buttons take full width */
+}
+
+.b button {
+    width: 200px; /* Ensures uniform button width */
+    height: 50px;
+    font-size: 1.2rem;
+    border-radius: 5px;
+}
+
+  </style>
+  <body>
+    <header>
+      <div class="header-left">
+        <div class="score"><button><span>🔥</span> 3</button></div>
+        <div class="xp"><button><span>💰</span> 120 XP</button></div>
+      </div>
+      <div class="title">
+        <h1><img src="{{ url_for('static', filename='assets/Codemon.png') }}" alt='Codemon'></h1>
+        <p id="SubHead"><img src="{{ url_for('static', filename='assets/Subname.png') }}" alt='SubHeading'></p>
+      </div>
+      <div class="header-right">
+        <img
+          src="{{ url_for('static', filename='assets/Avatar.png') }}"
+          alt="Trainer Icon"
+          class="trainer-icon"
+        />
+        <a href="{{ url_for('logout') }}"><button class="logout-btn">Logout</button></a>
+      </div>
+    </header>
+    <main>
+      <aside class="sidebar">
+        
+        <a href="{{ url_for('lessons') }}"><button>📚 LESSONS </button></a>
+        <a href="{{ url_for('trainer_profile') }}"><button>👤 TRAINER PROFILE </button></a>
+        <a href="{{ url_for('codedex') }}"><button>📂 CODEDEX </button></a>
+        <a href="{{ url_for('backpack') }}"><button>🎒 BACKPACK </button></a>
+        <a href="{{ url_for('about_us') }}"><button>ℹ️  ABOUT US</button></a>
+        <a href="{{ url_for('settings') }}"><button>⚙️ SETTINGS</button></a>
+        <a href="{{ url_for('flashcard1') }}"><button>📄 FLASH CARDS</button></a>
+      </aside>
+      <section class="content">
+        <img src="{{ url_for('static', filename='assets/game.png') }}" alt="Battle Background" class="battle-img"/>
+        <a href="{{ url_for('game') }}"> <button class="play-btn">PLAY NOW</button></a>
+      </section>
+      <aside class="sidebar-right">
+        <div class="b">
+          <a  href="{{ url_for('powerbi') }}"><button>📶 Personalized Path</button></a>
+          <a  href="{{ url_for('terminal') }}"><button>💻 Terminal</button></a>
+          <a  href="{{ url_for('leaderboard') }}"><button>📊 Leader Bord</button></a>
+          <a  href="{{ url_for('memory_card') }}"><button>𖡎 Memory Cards</button></a>
+          <a  href="{{ url_for('minigame_bug_buster') }}"><button>🐞 Bug Buster</button></a>
+          <a  href="{{ url_for('minigame_code_patcher') }}"><button>🖨 Code Patcher</button></a>
+      </div>
+      </aside>
+    </main>
+  </body>
+</html>

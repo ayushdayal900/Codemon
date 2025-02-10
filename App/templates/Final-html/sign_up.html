@@ -1,0 +1,180 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Signup Page</title>
+    <!-- <link rel="stylesheet" href="style.css"> -->
+</head>
+<style>
+    body {
+    background-color: #59BDB3;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    margin: 0;
+    flex-direction: column;
+    text-align: center;
+    overflow-x: hidden;
+    overflow-y: auto; 
+
+.container {
+    position: relative;
+    width: 95%;
+    max-width: 500px;
+    background-color: #2E7D7C;
+    padding: 35px;
+    border-radius: 20px;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+    margin: 30px;
+}
+
+.back-button {
+    position: fixed;
+    top: 20px;
+    left: 20px;
+    z-index: 1000;
+    background: #59BDB3;
+    border: 0px;
+}
+
+.back-button img {
+    width: 40px;
+    height: 40px;
+    cursor: pointer;
+    background: #59BDB3;
+}
+
+/* Login and Sign-up */
+
+.title {
+    font-size: 2rem;
+    color: rgb(0, 0, 0);
+    text-shadow: 1px 1px 1px black;
+}
+
+.form-box {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin-top: 20px;
+    width: 100%;
+}
+
+.input-group {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    align-items: flex-start;
+    margin-bottom: 10px;
+}
+
+.input-group label {
+    font-size: 1rem;
+    font-weight: bold;
+    color: white;
+    margin-bottom: 5px;
+    font-family: monospace;
+}
+
+.input-box {
+    width: 100%;
+    padding: 10px;
+    border-radius: 10px;
+    border: none;
+    font-size: 1rem;
+}
+
+.btn {
+    background-color: #FFBE55;
+    padding: 10px 20px;
+    border: none;
+    border-radius: 10px;
+    font-size: 1.2rem;
+    cursor: pointer;
+    margin-top: 10px;
+}
+
+.or {
+    margin: 10px 0;
+    font-size: 1rem;
+    color: white;
+}
+
+.google-btn {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-color: white;
+    padding: 10px;
+    border-radius: 40px;
+    font-size: 1rem;
+    cursor: pointer;
+    width: 70%;
+    justify-self: center;
+}
+
+.google-btn img {
+    width: 20px;
+    margin-right: 10px;
+}
+
+.sign_up_png {
+    margin-top: 30px;
+}
+
+/* Home */
+
+.game_name_png {
+    margin-top: -220px;
+}
+
+.btn1 .btn2 {
+    padding: 20px 60px;
+    margin-right: 100px;
+    margin-top: 50px;
+    margin-left: 100px;
+}
+    }
+
+</style>
+<body>
+    <button class="back-button"><img src="assets/back_button.png" alt=""></button>
+    <div class="container">
+        <h1 class="title"><img src="/assets/sign_up.png" width="250px" class="sign_up_png" alt=""></h1>
+        
+        <form class="form-box">
+            <div class="input-group">
+                <label for="First-name">First Name</label>
+                <input type="text" id="First-name" class="input-box" placeholder="Enter your first name">
+            </div>
+            <div class="input-group">
+                <label for="Last-name"> Last Name</label>
+                <input type="text" id="Last-name" class="input-box" placeholder="Enter your last name">
+            </div>
+            <div class="input-group">
+                <label for="U-name">Username</label>
+                <input type="text" id="U-name" class="input-box" placeholder="Enter your username">
+            </div>
+            <div class="input-group">
+                <label for="E-mail">Email</label>
+                <input type="email" id="E-mail" class="input-box" placeholder="Enter your email">
+            </div>
+            <div class="input-group">
+                <label for="Pass">Password</label>
+                <input type="password" id="Pass" class="input-box" placeholder="Enter your password">
+            </div>
+            <div class="input-group">
+                <label for="C-Pass">Confirm Password</label>
+                <input type="password" id="C-Pass" class="input-box" placeholder="Confirm your password">
+            </div>
+            <div class="input-group">
+                <label for="Age">Age</label>
+                <input type="number" id="Age" class="input-box" placeholder="Enter your age">
+            </div>
+            <button type="submit" class="btn">Sign-up</button>
+        </form>
+    </div>
+</body>
+</html>
