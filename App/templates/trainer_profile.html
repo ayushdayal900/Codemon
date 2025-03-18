@@ -1,0 +1,317 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Trainer Dashboard</title>
+</head>
+<style>
+    * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+        font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    }
+
+    body {
+        background: linear-gradient(135deg, #48BDB0 0%, #59BDB3 100%);
+        min-height: 100vh;
+        background-color: #59BDB3;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        height: 100vh;
+        margin: 0;
+        flex-direction: column;
+        text-align: center;
+        overflow-x: hidden;
+        overflow-y: auto;
+        /* CHANGED: Allows vertical scrolling */
+    }
+
+    .back-button {
+        position: fixed;
+        top: 20px;
+        left: 20px;
+        z-index: 1000;
+        background: #59BDB3;
+        border: 0px;
+    }
+
+    .back-button img {
+        width: 40px;
+        height: 40px;
+        cursor: pointer;
+        background: #59BDB3;
+    }
+
+    .trainer-profile-dashboard-container {
+        display: grid;
+        grid-template-columns: 300px 1fr;
+        min-height: 100vh;
+    }
+
+    .trainer-profile-sidebar {
+        background: #2E7D7C;
+        padding: 2rem;
+        box-shadow: 4px 0 15px rgba(0, 0, 0, 0.1);
+    }
+
+    .trainer-profile-trainer-info {
+        background: #C5EFE9;
+        padding: 1.5rem;
+        border-radius: 15px;
+        margin-bottom: 2rem;
+    }
+
+    .trainer-profile-info-item {
+        display: flex;
+        justify-content: space-between;
+        margin: 1rem 0;
+        font-size: 1.1rem;
+    }
+
+    .trainer-profile-label {
+        color: #333434;
+        font-weight: 500;
+    }
+
+    .trainer-profile-value {
+        color: #000000;
+        font-weight: 700;
+    }
+
+    .trainer-profile-level-circle {
+        background: #000000;
+        color: #03f1f1;
+        width: 35px;
+        height: 35px;
+        border-radius: 50%;
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+    }
+
+
+    .trainer-profile-main-content {
+        padding: 3rem;
+        background: #2c605f;
+    }
+
+    .trainer-profile-progress-section {
+        margin-bottom: 3rem;
+    }
+
+    .trainer-profile-progress-container {
+        background: white;
+        padding: 2rem;
+        border-radius: 15px;
+        box-shadow: 0 4px 6px rgba(0, 0, 0, 0.05);
+    }
+
+    .progress-bar {
+        background: #2E7D7C;
+        height: 20px;
+        border-radius: 10px;
+        overflow: hidden;
+        margin: 1rem 0;
+    }
+
+    .progress-fill {
+        background: linear-gradient(90deg, #3ba2e6, #00ffff);
+        height: 100%;
+        transition: width 5s ease;
+    }
+
+    .trainer-profile-progress-text {
+        color: #7f8c8d;
+        font-weight: 500;
+        text-align: center;
+    }
+
+    .trainer-profile-concepts-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+        gap: 1.5rem;
+        margin-top: 2rem;
+    }
+
+    .trainer-profile-concept-card {
+        background: #C5EFE9;
+        padding: 1.5rem;
+        border-radius: 15px;
+        box-shadow: 0 4px 6px rgba(0, 0, 0, 0.05);
+        transition: transform 0.3s ease;
+    }
+
+    .trainer-profile-concept-card h3 {
+        color: #2c3e50;
+        margin-bottom: 0.5rem;
+    }
+
+    .trainer-profile-concept-card p {
+        color: #7f8c8d;
+        font-size: 0.9rem;
+        margin-bottom: 1rem;
+    }
+
+    .trainer-profile-completion {
+        color: #2ecc71;
+        font-weight: 700;
+        text-align: right;
+    }
+
+    .trainer-profile-stats-section {
+        display: grid;
+        grid-template-columns: repeat(3, 1fr);
+        gap: 2rem;
+        margin-top: 3rem;
+    }
+
+    .trainer-profile-stat-box {
+        background: #C5EFE9;
+        padding: 1.5rem;
+        border-radius: 15px;
+        text-align: center;
+        box-shadow: 0 4px 6px rgba(0, 0, 0, 0.05);
+    }
+
+    .trainer-profile-stat-value {
+        font-size: 2rem;
+        color: #2c3e50;
+        margin-top: 1rem;
+        font-weight: 700;
+    }
+
+    .trainer-profile-badges-grid {
+        display: grid;
+        gap: 1rem;
+        margin-top: 1rem;
+    }
+
+    .trainer-profile-badge {
+        background: #C5EFE9;
+        padding: 1rem;
+        border-radius: 10px;
+        text-align: center;
+        font-weight: 600;
+        color: #2c3e50;
+        box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
+    }
+
+    @media (max-width: 768px) {
+        .trainer-profile-dashboard-container {
+            grid-template-columns: 1fr;
+
+            .trainer-profile-dashboard-container {
+                grid-template-columns: 1fr;
+            }
+
+            .trainer-profile-sidebar {
+                box-shadow: none;
+            }
+
+            .trainer-profile-stats-section {
+                grid-template-columns: 1fr;
+            }
+
+        }
+
+    }
+</style>
+
+<body>
+    <!-- back button functionality -->
+    <a href="{{url_for('router')}}" style=" text-decoration: none; color: inherit;">
+        <div class="back-button" onclick="window.location.href=''" style="cursor: pointer;">
+            <img src="{{ url_for('static', filename='assets/back_button.png') }}" alt="Back Button">
+        </div>
+    </a>
+
+    <div class="trainer-profile-dashboard-container">
+        <div class="trainer-profile-sidebar">
+            <div class="trainer-profile-profile-section">
+                <img src="{{ url_for('static', filename='assets/trainer.png') }}" alt="" width="250px" style="margin-bottom: 25px;">
+                <div class="trainer-profile-trainer-info">
+                    <div class="trainer-profile-info-item">
+                        <span class="trainer-profile-label">Name:</span>
+                        <span class="trainer-profile-value">CodeMaster</span>
+                    </div>
+                    <div class="trainer-profile-info-item">
+                        <span class="trainer-profile-label">Level:</span>
+                        <span class="trainer-profile-value trainer-profile-level-circle">8</span>
+                    </div>
+                    <div class="trainer-profile-info-item">
+                        <span class="trainer-profile-label">XP:</span>
+                        <span class="trainer-profile-value">835</span>
+                    </div>
+                </div>
+            </div>
+
+            <div class="trainer-profile-badges-section">
+                <h2>Recently Earned Badges</h2>
+                <div class="trainer-profile-badges-grid">
+                    <div class="trainer-profile-badge"><img src="{{ url_for('static', filename='assets/Badge1.png') }}" alt="" width="80px">
+                        <p>Steal Badge</p>
+                    </div>
+                    <div class="trainer-profile-badge"><img src="{{ url_for('static', filename='assets/Badge2.png') }}" alt="" width="80px">
+                        <p>Platinum Badge</p>
+                    </div>
+                    <div class="trainer-profile-badge"><img src="{{ url_for('static', filename='assets/Badge3.png') }}" alt="" width="80px">
+                        <p>Kalos Badge</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="trainer-profile-main-content">
+            <div class="progress-section">
+                <h2>Course Progress</h2>
+                <div class="progress-container">
+                    <div class="progress-bar">
+                        <div class="progress-fill" style="width: 75%"></div>
+                    </div>
+                    <div class="progress-text">15/20 Lessons Completed</div>
+                </div>
+            </div>
+
+            <div class="trainer-profile-concepts-section">
+                <h2>Mastered Concepts</h2>
+                <div class="trainer-profile-concepts-grid">
+                    <div class="trainer-profile-concept-card">
+                        <h3>Variables</h3>
+                        <p>Data storage mastery</p>
+                        <div class="trainer-profile-completion">100%</div>
+                    </div>
+                    <div class="trainer-profile-concept-card">
+                        <h3>Loops</h3>
+                        <p>Iteration techniques</p>
+                        <div class="trainer-profile-completion">85%</div>
+                    </div>
+                    <div class="trainer-profile-concept-card">
+                        <h3>Arrays</h3>
+                        <p>Collections handling</p>
+                        <div class="trainer-profile-completion">90%</div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="trainer-profile-stats-section">
+                <div class="trainer-profile-stat-box">
+                    <h3>Daily Streak</h3>
+                    <div class="trainer-profile-stat-value">27</div>
+                </div>
+                <div class="trainer-profile-stat-box">
+                    <h3>Accuracy</h3>
+                    <div class="trainer-profile-stat-value">67%</div>
+                </div>
+                <div class="trainer-profile-stat-box">
+                    <h3>Ranking</h3>
+                    <div class="trainer-profile-stat-value">#990119</div>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+
+</html>

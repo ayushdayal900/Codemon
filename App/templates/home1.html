@@ -1,0 +1,169 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Home</title>
+    <style>
+        body {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            height: 100vh;
+            background-color: #2E7D7C;
+            margin: 0;
+            text-align: center;
+        }
+
+        .back-button {
+            position: fixed;
+            top: 10px;
+            left: 10px;
+            background: none;
+            border: none;
+            cursor: pointer;
+        }
+
+        .back-button img {
+            width: 40px;
+            height: 40px;
+        }
+
+        .game_name_png {
+            max-width: 50%;
+            height: auto;
+            margin-bottom: 20px;
+        }
+
+        .button-container {
+            display: flex;
+            flex-direction: row;
+            justify-content: center;
+            /* margin-right: 80px; */
+            gap: 15px;
+            align-items: center;
+            width: 100%;
+        }
+
+        .btn {
+            width: 200px;
+            padding: 12px;
+            font-size: 18px;
+            font-weight: bold;
+            color: white;
+            background-color: #ff9800;
+            border: none;
+            border-radius: 8px;
+            cursor: pointer;
+            transition: background 0.3s;
+        }
+
+        .btn:hover {
+            background-color: #e68900;
+        }
+
+        .codemon1 {
+            position: fixed;
+            height: 350px;
+            width: 350px;
+            top: 20px;
+            right: 30px;
+        }
+
+        .codemon2 {
+            position: fixed;
+            height: 250px;
+            width: 250px;
+            top: 50px;
+            left: 100px;
+        }
+
+        .codemon3 {
+            position: fixed;
+            height: 150px;
+            width: 150px;
+            top: 170px;
+            right: 700px;
+        }
+
+        .codemon4 {
+            position: fixed;
+            height: 250px;
+            width: 250px;
+            bottom: 20px;
+            right: 120px;
+        }
+
+        .codemon5 {
+            position: fixed;
+            height: 350px;
+            width: 350px;
+            bottom: 0px;
+            left: 120px;
+            float: left;
+
+        }
+
+        .button-chatbot {
+            position: fixed;
+            bottom: 20px;
+            right: 20px;
+            z-index: 1000;
+            background: #2E7D7C;
+            border: 0px;
+            background: none;
+            border-radius: 50%;
+        }
+
+        .button-chatbot img {
+            width: 50px;
+            height: 50px;
+            cursor: pointer;
+            background: #2E7D7C;
+            background: none;
+        }
+
+        .button-chatbot button {
+            background: none;
+            border: none;
+        }
+
+            @media (max-width: 480px) {
+                .btn {
+                    width: 80%;
+                    font-size: 16px;
+                }
+            }
+    </style>
+</head>
+
+<body>
+    <button class="back-button"><img src="{{ url_for('static', filename='assets/back_button.png') }}" alt="Back"></button>
+    <div class="container">
+        <img class="game_name_png" src="{{ url_for('static', filename='assets/game_name.png') }}" alt="Game Name">
+
+        <div class="button-container">
+            <a href="{{url_for('login')}}"><button class="btn">Login</button></a>
+            <a href="{{url_for('register')}}"><button class="btn">Sign-up</button></a>
+            
+        </div>
+        <img class="codemon1" src="{{ url_for('static', filename='assets/Flux_Phoenix.png') }}" alt="">
+        <img class="codemon2" src="{{ url_for('static', filename='./assets/Syntax Serpent.png') }}" alt="">
+        <img class="codemon3" src="{{ url_for('static', filename='./assets/Byte Sprite.png') }}" alt="">
+        <img class="codemon4" src="{{ url_for('static', filename='./assets/Buggy.png') }}" alt="">
+        <img class="codemon5" src="{{ url_for('static', filename='./assets/Daemon Drake.png') }}" alt="">
+        
+
+    
+    </div>
+    <div class="button-chatbot">
+
+        <!-- <button><img src="./assets/chat-bot-v1.png" alt=""></button> -->
+        <button><img src="{{ url_for('static', filename='assets/chat-bot-v1.png') }}" alt=""></button>
+        
+    </div>
+</body>
+
+</html>

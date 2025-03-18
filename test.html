@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Streamlit Embedded</title>
+    <script src="https://cdn.jsdelivr.net/npm/@stlite/mountable"></script>
+</head>
+<body>
+    <h1>Streamlit App Embedded in HTML</h1>
+    <div id="stlite-app"></div>
+
+    <script>
+        stlite.mount("#stlite-app", {
+            requirements: ["pandas", "numpy"],  // Add any libraries you need
+            entrypoint: `
+import streamlit as st
+st.title("My Embedded Streamlit App")
+st.write("Hello from an embedded Streamlit app!")
+st.button("Click Me")
+            `
+        });
+    </script>
+</body>
+</html>

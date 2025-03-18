@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>About-Us</title>
+    <!-- <link rel="stylesheet" href="about-us-style.css"> -->
+</head>
+<style>
+    * {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: Arial, sans-serif;
+}
+body {
+    background-color: #6cc;
+    color: #333;
+    text-align: center;
+    overflow-y: auto;
+    padding-bottom: 20px;
+}
+.about-us-container {
+    width: 90%;
+    max-width: 500px;
+    margin: auto;
+    padding: 20px;
+}
+.about-us-header img {
+    width: 400px;
+}
+.about-us-section {
+    background: #90e0ef;
+    padding: 20px;
+    margin: 15px 0;
+    border-radius: 15px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+.about-us-section img {
+    width: 80%;
+    border-radius: 10px;
+}
+
+.back-button {
+    position: fixed;
+    top: 20px;
+    left: 20px;
+    z-index: 1000;
+    background: #6cc;
+    border: 0px;
+    border-radius: 50%;
+}
+
+.back-button img {
+    width: 40px;
+    height: 40px;
+    cursor: pointer;
+    background: #6cc;
+    border-radius: 50%;
+}
+
+.about-us-btn {
+    display: inline-block;
+    padding: 10px 20px;
+    margin-top: 10px;
+    background: #ff9f1c;
+    color: #fff;
+    text-decoration: none;
+    border-radius: 5px;
+    font-weight: bold;
+}
+.about-us-footer{
+    background: #278F8F;
+    margin-bottom: 0%;
+    text-wrap: wrap;
+}
+</style>
+<body>
+    
+    <!-- back button functionality -->
+    <a href="{{url_for('router')}}" style=" text-decoration: none; color: inherit;">
+        <div class="back-button" onclick="window.location.href=''" style="cursor: pointer;">
+            <img src="{{ url_for('static', filename='assets/back_button.png') }}" alt="Back Button">
+        </div>
+    </a>
+
+
+    <div class="about-us-container">
+        <div class="about-us-header">
+            <img src="{{ url_for('static', filename='assets/game_name.png') }}" alt="Codemon Logo">
+        </div>
+        
+        <div class="about-us-section">
+            <h2>A New Way To Learn</h2>
+            <img src="{{ url_for('static', filename='assets/Algorithmic Ape.png') }}" style="width: 220px;" alt="Learn">
+            <p>Learn and play with CODEMON, a coding game designed to make learning fun.</p>
+            <a href="#" class="about-us-btn">Learn Now</a>
+        </div>
+        
+        <div class="about-us-section">
+            <h2>Start Exploring</h2>
+            <img src="{{ url_for('static', filename='assets/Buffer Blob.png') }}"style="width: 220px;" alt="Learn">
+            <p>Explore a well-organized tool that helps you get the most out of Codemon.</p>
+            <a href="#" class="about-us-btn">Explore</a>
+        </div>
+        
+        <div class="about-us-section">
+            <h2>Developer</h2>
+            <img src="{{ url_for('static', filename='assets/Compiler Cat.png') }}" style="width: 220px;" alt="Learn">
+            <p>We now support Java Coding language. Join us to write, test, and play coding games.</p>
+            <a href="#" class="about-us-btn">Know more</a>
+        </div>
+    </div>
+    <div class="about-us-footer">
+        <br>
+        <p><b>&copy;Team Synergy</b></p>
+    </div>
+</body>
+</html>

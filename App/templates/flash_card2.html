@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Flash Cards</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+    <button class="back-button"><img src="pngs/back_button.png" alt=""></button>
+    <div class="container">
+        <h1 class="title"><img src="/pngs/flash_card.png" width="350px" alt=""></h1>
+        <div class="flash-card">
+            <div class="concept-box">Concept: Array</div>
+            <div class="card-content">
+                <span class="status">Reviewing</span>
+                <p class="code-title">Arrays.sort();</p>
+                <p class="description"><strong>Inbuilt function:</strong> Helps to sort the array.</p>
+                <div class="code-box">
+                    <pre>
+int[] arr = {11, 21, 0, 1, 5};
+Arrays.sort(arr);
+---> arr = {0, 1, 5, 11, 21}
+                    </pre>
+                </div>
+                <div class="buttons">
+                    <button class="btn">Not get it..!</button>
+                    <button class="btn">Got it..!</button>
+                </div>
+            </div>
+            <div class="progress-container">
+                <div class="progress-item">
+                    <span class="progress-label">Mastered: 11/50</span>
+                    <div class="progress-bar">
+                        <div class="progress-fill green" style="width: 22%;"></div>
+                    </div>
+                </div>
+                <div class="progress-item">
+                    <span class="progress-label">Review: 20/50</span>
+                    <div class="progress-bar">
+                        <div class="progress-fill orange" style="width: 40%;"></div>
+                    </div>
+                </div>
+                <div class="progress-item">
+                    <span class="progress-label">Learned: 30/50</span>
+                    <div class="progress-bar">
+                        <div class="progress-fill red" style="width: 60%;"></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+
+</html>

@@ -1,0 +1,271 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Flash Cards</title>
+    <style>
+        body {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            background-color: #2E7D7C;
+            margin: 0;
+        }
+
+        .container {
+            text-align: center;
+            width: 90%;
+            max-width: 500px;
+        }
+
+
+        .flash-card {
+            background: white;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+            cursor: pointer;
+            transition: transform 0.3s;
+        }
+
+        .flash-card:hover {
+            transform: scale(1.05);
+        }
+
+        .concept-box {
+            font-size: 20px;
+            font-weight: bold;
+            margin-bottom: 10px;
+        }
+
+        .status {
+            font-size: 16px;
+            color: #ff9800;
+        }
+
+        .code-snippet {
+            font-family: monospace;
+            background: #f4f4f4;
+            padding: 5px;
+            border-radius: 5px;
+        }
+
+        .tap-text {
+            font-size: 14px;
+            color: gray;
+            margin-top: 10px;
+        }
+
+        .progress-container {
+            margin-top: 20px;
+        }
+
+        .progress-item {
+            margin-bottom: 10px;
+        }
+
+        .progress-label {
+            display: block;
+            font-size: 14px;
+            margin-bottom: 5px;
+        }
+
+        .progress-bar {
+            width: 100%;
+            height: 10px;
+            background: #ddd;
+            border-radius: 5px;
+            overflow: hidden;
+        }
+
+        .progress-fill {
+            height: 100%;
+        }
+
+        .green {
+            background: #4CAF50;
+        }
+
+        .orange {
+            background: #FF9800;
+        }
+
+        .red {
+            background: #F44336;
+        }
+
+        .back-button {
+            position: fixed;
+            top: 20px;
+            left: 20px;
+            z-index: 1000;
+            background: #2E7D7C;
+            border: 0px;
+        }
+
+        .back-button img {
+            width: 40px;
+            height: 40px;
+            cursor: pointer;
+            background: #2E7D7C;
+        }
+
+        .button-container {
+            margin-top: 15px;
+            display: flex;
+            justify-content: center;
+            gap: 10px;
+        }
+
+        .got-it-btn,
+        .not-got-it-btn {
+            padding: 10px 15px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 1rem;
+            transition: 0.3s;
+        }
+
+        .got-it-btn {
+            background-color: #4CAF50;
+            color: white;
+        }
+
+        .not-got-it-btn {
+            background-color: #F44336;
+            color: white;
+        }
+
+        .got-it-btn:hover {
+            background-color: #388E3C;
+        }
+
+        .not-got-it-btn:hover {
+            background-color: #D32F2F;
+        }
+
+
+        .container {
+            position: relative;
+            width: 95%;
+            max-width: 500px;
+            background-color: #2E7D7C;
+            padding: 35px;
+            border-radius: 20px;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+            margin: 30px;
+        }
+    </style>
+</head>
+
+<body>
+
+    <div class="header">
+        <!-- back button functionality -->
+        <a href="{{url_for('router')}}" style=" text-decoration: none; color: inherit;">
+          <div class="back-button" onclick="window.location.href=''" style="cursor: pointer;">
+              <img src="{{ url_for('static', filename='assets/back_button.png') }}" alt="Back Button">
+          </div>
+      </a>
+
+    <div class="container">
+        
+        <h1 class="title"><img src="{{ url_for('static', filename='assets/flash_card.png') }}" width="350px" alt=""></h1>
+        <div class="flash-card" id="flashCard">
+            <div class="concept-box">Concept: Array</div>
+            <div class="card-content">
+                <span class="status">Reviewing</span>
+                <p class="code-snippet">Arrays.sort();</p>
+                <p class="tap-text">Tap to see details →</p>
+            </div>
+        </div>
+        <div class="progress-container">
+            <div class="progress-item">
+                <span class="progress-label">Mastered: <span id="masteredCount">11</span>/50</span>
+                <div class="progress-bar">
+                    <div class="progress-fill green" id="masteredBar" style="width: 22%;"></div>
+                </div>
+            </div>
+            <div class="progress-item">
+                <span class="progress-label">Review: <span id="reviewCount">20</span>/50</span>
+                <div class="progress-bar">
+                    <div class="progress-fill orange" id="reviewBar" style="width: 40%;"></div>
+                </div>
+            </div>
+            <div class="progress-item">
+                <span class="progress-label">Learned: <span id="learnedCount">30</span>/50</span>
+                <div class="progress-bar">
+                    <div class="progress-fill red" id="learnedBar" style="width: 60%;"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        const flashCard = document.getElementById("flashCard");
+        let isFlipped = false;
+
+        flashCard.addEventListener("click", function () {
+            if (!isFlipped) {
+                this.innerHTML = `
+                    <div class="concept-box">Concept: Array</div>
+                    <div class="card-content">
+                        <span class="status">Reviewing</span>
+                        <p class="code-snippet">Arrays.sort();</p>
+                        <p class="description">An array is a data structure that stores a collection of elements of the same data type in contiguous memory locations.  Think of it like a row of labeled boxes, where each box can hold a single value, and all the values must be of the same type (e.g., all integers, all strings, all booleans).
+
+ <br> Example: <code>int[] arr = {3, 1, 2};</code></p>
+                    </div>
+                `;
+                isFlipped = true;
+            } else {
+                this.innerHTML = `
+                    <div class="concept-box">Concept: Array</div>
+                    <div class="card-content">
+                        <span class="status">Reviewing</span>
+                        <p class="code-snippet">Arrays.sort();</p>
+                        <p class="tap-text">Tap to see details →</p>
+                    </div>
+                `;
+                isFlipped = false;
+            }
+        });
+
+        document.querySelector(".back-button").addEventListener("click", function () {
+            window.history.back();
+        });
+
+        function updateProgress(category, increment) {
+            let countElement = document.getElementById(category + "Count");
+            let barElement = document.getElementById(category + "Bar");
+
+            let currentCount = parseInt(countElement.textContent);
+            let newCount = currentCount + increment;
+            newCount = Math.min(newCount, 50);
+
+            countElement.textContent = newCount;
+            barElement.style.width = (newCount / 50) * 100 + "%";
+        }
+
+        setTimeout(() => updateProgress("mastered", 2), 2000);
+        setTimeout(() => updateProgress("review", -1), 4000);
+        setTimeout(() => updateProgress("learned", 3), 6000);
+
+        document.querySelector(".got-it-btn").addEventListener("click", function () {
+            updateProgress("mastered", 1);
+            updateProgress("review", -1);
+        });
+
+        document.querySelector(".not-got-it-btn").addEventListener("click", function () {
+            updateProgress("review", 1);
+            updateProgress("mastered", -1);
+        });
+
+    </script>
+</body>
+
+</html>

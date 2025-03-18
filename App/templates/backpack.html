@@ -1,0 +1,226 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Pokémon Backpack</title>
+    <link rel="stylesheet" href="style.css">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        body {
+            width: 100vw;
+            height: 100vh;
+            background-color: #59BDB3;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+            overflow-x: hidden;
+            overflow-y: auto;
+        }
+
+        .backpack-container {
+            width: 100%;
+            height: 100vh; /* Ensure full page height */
+            max-width: 900px;
+            background-color: #4abfbf;
+            border-radius: 10px;
+            padding: 20px;
+            text-align: center;
+            position: relative;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: space-between;
+        }
+
+        .backpack-header img {
+            max-width: 100%;
+            height: auto;
+            display: block;
+        }
+
+        .backpack-items-section {
+            width: 100%;
+            padding: 20px;
+        }
+
+        .backpack-title {
+            font-size: 1.8rem;
+            margin-bottom: 1rem;
+        }
+
+        .backpack-items-grid {
+            display: flex;
+            flex-direction: column;
+            width: 100%;
+            max-width: 600px;
+            background-color: #ffe5b4;
+            padding: 15px;
+            border-radius: 10px;
+            box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.2);
+            justify-self: center;
+        }
+
+        .backpack-item-row {
+            display: flex;
+            justify-content: space-between;
+            padding: 12px;
+            border-bottom: 1px solid #d1a166;
+            font-size: 18px;
+            margin-bottom: 13px;
+        }
+
+        .backpack-item-name {
+            font-weight: bold;
+        }
+
+        .backpack-description-box {
+            width: 90%;
+            max-width: 600px;
+            background-color: #144c4c;
+            padding: 15px;
+            border-radius: 10px;
+            color: white;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-top: 20px;
+        }
+
+        .backpack-description-text img {
+            width: 70px;
+            max-width: 100%;
+            height: auto;
+            margin-right: 15px;
+        }
+
+        .button-chatbot{
+            position: fixed;
+            bottom: 20px;
+            right: 20px;
+            z-index: 1000;
+            background: #2E7D7C;
+            border: 0px;
+            background: none;
+        }
+
+        .button-chatbot img{
+            width: 50px;
+            height: 50px;
+            cursor: pointer;
+            background: #2E7D7C;
+            background: none;
+        }
+
+        .button-chatbot button {
+            background: none;
+            border: none;
+        }
+
+        @media (max-width: 600px) {
+            .backpack-container {
+                padding: 10px;
+            }
+
+            .backpack-items-grid {
+                padding: 10px;
+            }
+
+            .backpack-description-box {
+                flex-direction: column;
+                text-align: center;
+            }
+
+            .backpack-description-text img {
+                margin-right: 0;
+                margin-bottom: 10px;
+            }
+
+            
+        }
+
+
+
+        .back-button {
+    position: fixed;
+    top: 20px;
+    left: 20px;
+    z-index: 1000;
+    background: #59BDB3;
+    border: 0px;
+}
+
+.back-button img {
+    width: 40px;
+    height: 40px;
+    cursor: pointer;
+    background: #59BDB3;
+}
+    </style>
+</head>
+
+<body>
+     <!-- back button functionality -->
+     <a href="{{url_for('router')}}" style=" text-decoration: none; color: inherit;">
+        <div class="back-button" onclick="window.location.href=''" style="cursor: pointer;">
+            <img src="{{ url_for('static', filename='assets/back_button.png') }}" alt="Back Button">
+        </div>
+    </a>
+
+    
+    <div class="backpack-container">
+        <div class="backpack-header">
+            <img src="{{ url_for('static', filename='assets/backpage.png') }}" width="350px" alt="Backpack">
+            <img src="{{ url_for('static', filename='assets/backpack_bag.png') }}" width="100px" alt="Bag">
+        </div>
+
+        <div class="backpack-items-section">
+            <h2 class="backpack-title">ITEMS</h2>
+
+            <div class="backpack-items-grid">
+                <div class="backpack-item-row">
+                    <span class="backpack-item-name">Potion</span>
+                    <span class="backpack-item-quantity">X3</span>
+                </div>
+                <div class="backpack-item-row">
+                    <span class="backpack-item-name">Antidote</span>
+                    <span class="backpack-item-quantity">X1</span>
+                </div>
+                <div class="backpack-item-row">
+                    <span class="backpack-item-name">Repel</span>
+                    <span class="backpack-item-quantity">X2</span>
+                </div>
+                <div class="backpack-item-row">
+                    <span class="backpack-item-name">Candy</span>
+                    <span class="backpack-item-quantity">X1</span>
+                </div>
+                <div class="backpack-item-row">
+                    <span class="backpack-item-name">Escape rope</span>
+                    <span class="backpack-item-quantity">X1</span>
+                </div>
+                <div class="backpack-item-row">
+                    <span class="backpack-item-name">Moon stone</span>
+                    <span class="backpack-item-quantity">X1</span>
+                </div>
+            </div>
+        </div>
+
+        <div class="backpack-description-box">
+            <p class="backpack-description-text">
+                <img src="{{ url_for('static', filename='assets/candy.png') }}" width="70px" alt="Candy">
+                A Candy that is packed with energy. It raises the level of Pokémon by one.
+            </p>
+        </div>
+    </div>
+    <div class="button-chatbot">
+        <button><img src="./assets/chat-bot-v1.png" alt=""></button>
+    </div>
+</body>
+
+</html>

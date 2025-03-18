@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="/static/style.css">
+    <title>Home</title>
+</head>
+<body>
+    
+    <button class="back-button"><img src="./static/pngs/pichu.png" alt=""></button> <!-- image path like this -->
+    <img class="game_name_png" src="./static/pngs/pichu.png" alt="Game name" height="300px">
+    <div>
+        <a href="{{url_for('login')}}"><button class="btn btn1">Login</button></a>
+        <a href="{{url_for('logout')}}"> <button class="btn btn1">Logout    </button></a>
+        <a href="{{url_for('register')}}"> <button class="btn btn1">Sign Up</button></a>
+        
+    <div class="auth">
+        <div>
+        </div>
+    </div>
+</div>
+</body>
+</html>

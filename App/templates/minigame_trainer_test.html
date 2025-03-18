@@ -1,0 +1,208 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="UTF-8">
+  <title>MCQ Coding Concepts Game</title>
+  <style>
+    /* CSS styling */
+    body {
+      font-family: Arial, sans-serif;
+      background: #f2f2f2;
+      margin: 0;
+      padding: 0;
+    }
+    .container {
+      max-width: 600px;
+      margin: 50px auto;
+      background: #fff;
+      padding: 20px;
+      border-radius: 8px;
+      box-shadow: 0 0 10px rgba(0,0,0,0.1);
+    }
+    h1, h2 {
+      text-align: center;
+    }
+    .question {
+      font-size: 20px;
+      margin-bottom: 20px;
+    }
+    .options {
+      list-style: none;
+      padding: 0;
+    }
+    .options li {
+      margin-bottom: 10px;
+    }
+    button.option-btn {
+      width: 100%;
+      padding: 10px;
+      font-size: 16px;
+      cursor: pointer;
+      border: 1px solid #ccc;
+      background: #e7e7e7;
+      border-radius: 4px;
+    }
+    button.option-btn:hover {
+      background: #d7d7d7;
+    }
+    .score {
+      text-align: center;
+      font-size: 18px;
+      margin-top: 20px;
+    }
+    #feedback {
+      text-align: center;
+      font-size: 18px;
+      margin-top: 10px;
+      min-height: 24px;
+    }
+    #next-btn {
+      display: block;
+      margin: 20px auto;
+      padding: 10px 20px;
+      font-size: 16px;
+      cursor: pointer;
+    }
+    .hidden {
+      display: none;
+    }
+  </style>
+  <!-- Remove or update points_update.js if it's not needed -->
+  <script src="points_update.js"></script>
+</head>
+<body>
+  <div class="container">
+    <h1>MCQ Coding Concepts Game</h1>
+    <div id="game">
+      <div id="question-container">
+        <div id="question" class="question">Question Text</div>
+        <ul id="options" class="options"></ul>
+      </div>
+      <div id="feedback"></div>
+      <button id="next-btn" class="hidden">Next Question</button>
+      <div id="score" class="score">Score: 0</div>
+    </div>
+  </div>
+
+  <script>
+    document.addEventListener("DOMContentLoaded", async function() {
+      // Function to fetch dynamic questions data from the server.
+      async function fetchTTData() {
+        const response = await fetch('http://127.0.0.1:5000/tt_data');
+        if (!response.ok) {
+          throw new Error("HTTP error " + response.status);
+        }
+        return response.json();
+      }
+
+      // This will hold our questions once fetched (or fallback data if needed).
+      let questions = [];
+
+      try {
+        const fetchedData = await fetchTTData();
+        console.log("Fetched data:", fetchedData);
+        
+        // Map the fetched data into our question objects.
+        if (Array.isArray(fetchedData)) {
+          questions = fetchedData.map((item, index) => ({
+            question: item.question || "Question " + (index + 1),
+            options: [item.option1, item.option2, item.option3, item.option4],
+            answer: item.answer  
+          }));
+        } else {
+          console.error("Fetched data is not an array:", fetchedData);
+          return;
+        }
+      } catch (error) {
+        console.error("Error fetching data:", error);
+        // Fallback to hardcoded questions if fetching fails.
+        questions = [
+          {
+            question: "What does HTML stand for?",
+            options: [
+              "Hyper Text Markup Language", 
+              "High Text Markup Language", 
+              "Hyper Tabular Markup Language", 
+              "None of these"
+            ],
+            answer: 0
+          },
+          {
+            question: "Which language is used for styling web pages?",
+            options: ["HTML", "JQuery", "CSS", "XML"],
+            answer: 2
+          }
+        ];
+      }
+      
+      console.log("Mapped questions:", questions);
+
+      // Game variables.
+      let currentQuestionIndex = 0;
+      let score = 0;
+
+      // Get references to DOM elements.
+      const questionEl = document.getElementById("question");
+      const optionsEl = document.getElementById("options");
+      const feedbackEl = document.getElementById("feedback");
+      const scoreEl = document.getElementById("score");
+      const nextBtn = document.getElementById("next-btn");
+
+      // Function to display a question.
+      function showQuestion(index) {
+        // Clear previous feedback and options.
+        feedbackEl.innerText = "";
+        optionsEl.innerHTML = "";
+        
+        const q = questions[index];
+        questionEl.innerText = q.question;
+        
+        // Create a button for each option.
+        q.options.forEach((option, idx) => {
+          const li = document.createElement("li");
+          const button = document.createElement("button");
+          button.className = "option-btn";
+          button.innerText = option;
+          button.addEventListener("click", () => {
+            // Check if the clicked option is correct.
+            if (idx === q.answer) {
+              feedbackEl.innerText = "Correct!";
+              score += 10; // Award 10 points for a correct answer.
+            } else {
+              feedbackEl.innerText = "Incorrect! The correct answer is: " + q.options[q.answer];
+            }
+            scoreEl.innerText = "Score: " + score;
+            
+            // Disable all option buttons after answering.
+            document.querySelectorAll(".option-btn").forEach(btn => btn.disabled = true);
+            
+            // Show the "Next Question" button.
+            nextBtn.classList.remove("hidden");
+          });
+          li.appendChild(button);
+          optionsEl.appendChild(li);
+        });
+      }
+
+      // "Next Question" button event handler.
+      nextBtn.addEventListener("click", () => {
+        currentQuestionIndex++;
+        if (currentQuestionIndex < questions.length) {
+          showQuestion(currentQuestionIndex);
+          nextBtn.classList.add("hidden");
+        } else {
+          // Game over: Display the final score.
+          document.getElementById("question-container").innerHTML =
+            "<h2>Game Over!</h2><p>Your final score is " + score + ".</p>";
+          nextBtn.classList.add("hidden");
+          fetchAndUpdateUserPoints(score);
+          feedbackEl.innerText = "";
+        }
+      });
+
+      // Start the game with the first question.
+      showQuestion(currentQuestionIndex);
+    });
+  </script>
+</body>
+</html>

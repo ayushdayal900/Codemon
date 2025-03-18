@@ -1,0 +1,264 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Codemon</title>
+    <style>
+      body {
+  font-family: 'Baloo Bhai 2', cursive;
+  background-color: #7FD3C5;
+  margin: 0;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  overflow-x: hidden;
+}
+
+header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  width: 100%;
+  background-color: #59BDB3;
+  color: white;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+  /* padding: 10px;  */
+}
+
+.header-left {
+  display: flex;
+  align-items: center;
+  gap: 20px;
+  margin-left: 3%; 
+}
+
+.score button {
+  background-color: #FFBD54;
+  color: black;
+  width: 80px;
+  height: 50px;
+  border-radius: 10px;
+  font-size: 1.5rem;
+  display: flex;
+  align-items: center;
+  justify-content: center; 
+  border:none;
+}
+
+.xp button {
+  background-color: #FFBD54;
+  color: black;
+  width: 150px;
+  height: 50px;
+  border-radius: 10px;
+  font-size: 1.5rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border:none; 
+}
+
+.title {
+  text-align: center;
+  margin-top: 20px; 
+}
+
+.title h1 {
+  font-size: 2rem;
+  margin: 0;
+  color: #ffcc00;
+}
+
+.title img {
+  width: 600px;
+  height: auto;
+  display: block; 
+  margin: 0 auto; 
+}
+
+#SubHead img {
+  width: 300px;
+  height: auto;
+  display: block; 
+  margin: 0 auto;
+}
+
+.title p {
+  margin: 0;
+  font-size: 1rem;
+  color: #fff;
+}
+
+.header-right {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin-right: 2%;
+}
+
+.trainer-icon {
+  width: 60px;
+  height: 60px;
+  border-radius: 50%;
+  border: 2px solid white;
+}
+
+.logout-btn {
+  background-color: #FFBD54;
+  width: 150px;
+  height: 50px;
+  border: none;
+  padding: 5px 15px;
+  border-radius: 10px;
+  cursor: pointer;
+  font-size: 1.5rem;
+}
+
+main {
+  display: flex;
+  width: 100%;
+  margin-top: 20px;
+  justify-content: center;
+}
+
+.sidebar, .sidebar-right {
+  width: 20%;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.sidebar button, .sidebar-right button {
+  background-color: #189593;
+  height: 50px;
+  width: 180px;
+  color: white;
+  border: none;
+  cursor: pointer;
+  border-radius: 5px;
+  font-size: 0.9rem;
+  text-align: left;
+  padding-left: 10px; 
+  box-sizing: border-box;
+}
+
+.sidebar {
+  margin-left: 2%;
+}
+
+.sidebar button {
+  margin-right: auto; 
+}
+
+.sidebar-right button {
+  font-size: 1.2rem;
+  text-align: center;
+  height: 72.5px;
+  margin-left: auto; 
+  width: 200px; 
+}
+
+.content {
+  width: 55%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 20px;
+}
+
+.battle-img {
+  margin-top:0;
+  width: 100%;
+  border-radius: 10px;
+
+}
+
+.play-btn {
+  background-color: #f4ad3a;
+  color: black;
+  border: none;
+  padding: 10px 20px;
+  border-radius: 10px;
+  font-size: 1.5rem;
+  cursor: pointer;
+}
+
+@media (max-width: 768px) {
+        header {
+          flex-direction: column;
+          text-align: center;
+        }
+
+        .header-left, .header-right {
+          justify-content: center;
+          margin: 5px 0;
+        }
+
+        .sidebar, .sidebar-right {
+          width: 100%;
+          flex-direction: row;
+          justify-content: space-around;
+        }
+
+        .sidebar button, .sidebar-right button {
+          width: auto;
+          flex-grow: 1;
+          font-size: 0.8rem;
+        }
+
+        .content {
+          width: 90%;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <header>
+      <div class="header-left">
+        <div class="score"><button><span>🔥</span> 3</button></div>
+        <div class="xp"><button><span>💰</span> 120 XP</button></div>
+      </div>
+      <div class="title">
+        <h1><img src='./assets/Codemon.png' alt='Codemon'></h1>
+        <p id="SubHead"><img src='./assets/SubName.png' alt='SubHeading'></p>
+      </div>
+      <div class="header-right">
+        <img
+          src="./assets/image1.png"
+          alt="Trainer Icon"
+          class="trainer-icon"
+        />
+        <button class="logout-btn">Logout</button>
+      </div>
+    </header>
+    <main>
+      <aside class="sidebar">
+        <button>📚 LESSONS</button>
+        <button>👤 TRAINER PROFILE</button>
+        <button>📂 POKEDEX</button>
+        <button>🎒 BACKPACK</button>
+        <button> ℹ️  ABOUT US</button>
+        <button>⚙️ SETTINGS</button>
+        <button>📄 FLASH CARDS</button>
+      </aside>
+      <section class="content">
+        <img
+          src="./assets/image.png"
+          alt="Battle Background"
+          class="battle-img"
+        />
+        <button class="play-btn">PLAY NOW</button>
+      </section>
+      <aside class="sidebar-right">
+        <button>Leaderboard</button>
+        <button>Memory Cards</button>
+        <button>Trainer Test</button>
+        <button>Bug Buster</button>
+        <button>Code Patcher</button>
+      </aside>
+    </main>
+  </body>
+</html>

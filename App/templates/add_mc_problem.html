@@ -1,0 +1,61 @@
+{% extends "layout.html" %}
+
+{% block content %}
+<div class="card shadow-sm" style="min-height: 450px;">
+    <div class="card-body p-4">
+      <h2 class="text-center text-primary mb-4">Add Memory Card Problem</h2>
+      <form method="POST" action="">
+        {{ form.hidden_tag() }}
+        <fieldset class="form-group">
+          <legend class="border-bottom mb-4 text-center">New Memory Card Problem</legend>
+
+
+        <!-- description -->
+        <div class="form-group mb-3">
+            {{ form.id.label(class_="form-label") }}
+            {{ form.id(class_="form-control form-control-lg " + ("is-invalid" if form.id.errors else ""), placeholder="id") }}
+            {% if form.id.errors %}
+            <div class="invalid-feedback">
+              {% for error in form.id.errors %}
+                <span>{{ error }}</span>
+              {% endfor %}
+            </div>
+            {% endif %}
+          </div>
+
+          <!-- description -->
+          <div class="form-group mb-3">
+            {{ form.description.label(class_="form-label") }}
+            {{ form.description(class_="form-control form-control-lg " + ("is-invalid" if form.description.errors else ""), placeholder="description") }}
+            {% if form.description.errors %}
+            <div class="invalid-feedback">
+              {% for error in form.description.errors %}
+                <span>{{ error }}</span>
+              {% endfor %}
+            </div>
+            {% endif %}
+          </div>
+
+          <!-- buggy code -->
+          <div class="form-group mb-3">
+            {{ form.concept.label(class_="form-label") }}
+            {{ form.concept(class_="form-control form-control-lg " + ("is-invalid" if form.concept.errors else ""), placeholder="Enter concept") }}
+            {% if form.concept.errors %}
+            <div class="invalid-feedback">
+              {% for error in form.concept.errors %}
+                <span>{{ error }}</span>
+              {% endfor %}
+            </div>
+            {% endif %}
+          </div>
+
+          <!-- Submit Button -->
+          <div class="d-grid mb-3">
+            {{ form.submit(class_="btn btn-primary btn-lg") }}
+          </div>
+
+        </fieldset>
+      </form>
+    </div>
+  </div>
+{% endblock content %}

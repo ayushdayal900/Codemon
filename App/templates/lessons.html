@@ -1,0 +1,256 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Codemon Lessons</title>
+    <style>
+        body {
+  font-family: sans-serif;
+  margin: 0;
+  padding: 0;
+  background-color: #D0ECE9;
+  color: #333;
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+}
+
+header {
+  background-color: #59BDB3;
+  padding: 2px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+}
+
+.back-button img {
+  cursor: pointer;
+  width: 70px;
+  height: auto;
+  margin-left: 20px;
+}
+
+.header-title {
+flex:1;
+display: flex;
+justify-content: center;
+
+}
+.header-title img {
+  width:700px;
+}
+
+main {
+  padding: 20px;
+  flex: 1;
+  display: flex;
+  align-items: flex-start;
+  
+}
+
+.lesson-levels {
+  display: flex;
+  justify-content: space-around;
+  margin-bottom: 20px;
+  flex: 2;
+}
+
+.lesson-level-container {
+  gap:20px;
+  display: flex;
+  flex-direction: column;
+  align-items: center; 
+  flex: 1; 
+  margin: 30px;
+}
+
+.lesson-level {
+  background-color: #7FD3C5;
+  border-radius: 10px;
+  padding: 20px;
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+  align-items: flex start;
+  height: 540px;
+  width:250px;
+}
+
+.level-header-card {
+  gap:40px;
+  background-color: #7FD3C5;
+  border-radius: 10px;
+  margin-bottom: 20px;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.5);
+  text-align: center;
+  width: 180px;
+
+  
+}
+
+.lesson-level h2 {
+  margin: 0;
+}
+
+.lesson-level h3 {
+  font-size: 1.5rem;
+  font-weight:bold ;
+  margin: 0;
+  
+}
+
+.focus, .description {
+  
+  text-align: left;
+}
+
+ul, p {
+  background-color: #B2F1E8;
+  padding: 10px;
+  margin-bottom: 5px;
+  border-radius:10px;
+  height: 250px;
+}
+
+li {
+  line-height: 1.2;
+  margin-top: 5px;
+  margin-left: 15px;
+}
+
+p {
+  height:80px;
+}
+
+.mascot {
+  flex: 1;
+  text-align: center;
+  align-self:center;
+}
+
+.mascot img {
+  margin-bottom: 0%;
+  height: 550px;
+  width: auto;
+}
+
+    </style>
+</head>
+<body>
+    <header>
+        <div class="back-button">
+            
+
+            <!-- back button functionality -->
+            <a href="{{url_for('router')}}" style=" text-decoration: none; color: inherit;">
+                <div class="back-button" onclick="window.location.href=''" style="cursor: pointer;">
+                    <img src="{{ url_for('static', filename='assets/back_button.png') }}" alt="Back Button">
+                </div>
+            </a>
+
+
+        </div>
+        <div class="header-title">
+            <img src="{{ url_for('static', filename='assets/lessons.png') }}" style="width:400px;" alt="Lessons Header">
+            
+        </div>
+    </header>
+
+    
+    <main>
+        <section class="lesson-levels">
+
+
+            <div class="lesson-level-container">
+                <a href="{{url_for('beg_lessons')}}" style=" text-decoration: none; color: inherit;">
+                    <div class="level-header-card" style="cursor: pointer;">
+                        <h2>Beginner</h2>
+                    </div>
+                </a>
+
+                
+
+
+                <div class="lesson-level" onclick="window.location.href='./beg_lesson.html'" style="cursor: pointer;">
+                    <h3>Codemon Cadet</h3>
+                    <div class="focus">
+                        <h4>Focus:</h4>
+                        <p>Introduction to fundamental coding concepts and the Codemon world.</p>
+                    </div>
+
+
+
+                    <div class="description">
+                        <h4>Description:</h4>
+                        <ul>
+                            <li><div class="inner-box">Begin as a Codemon Cadet and start your coding journey!</div></li>
+                            <li><div class="inner-box">Meet the Code Squad: Varibolt, Loopy, Condifrost & more.</div></li>
+                            <li><div class="inner-box">Learn variables and data types (numbers, words, true/false).</div></li>
+                            <li><div class="inner-box">Perform basic operations and build a strong foundation.</div></li>
+                            <li><div class="inner-box">Catch the coding bug and level up!</div></li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+            <div class="lesson-level-container">
+
+                <a href="{{url_for('int_lessons')}}" style=" text-decoration: none; color: inherit;">
+                    <div class="level-header-card" style="cursor: pointer;">
+                        <h2>Intermediate</h2>
+                    </div>
+                </a>
+                
+                <div class="lesson-level"onclick="window.location.href='./int-lesson.html'" style="cursor: pointer;">
+                    <h3>Codemon Explorer</h3>
+                    <div class="focus">
+                        <h4>Focus:</h4>
+                        <p>Mastering control flow and basic logic.</p>
+                    </div>
+                    <div class="description">
+                        <h4>Description:</h4>
+                        <ul>
+                            <li><div class="inner-box">Level up to Codemon Explorer and control your code flow!</div></li>
+                            <li><div class="inner-box">Master conditionals for decision-making.</div></li>
+                            <li><div class="inner-box">Use loops to repeat actions efficiently.</div></li>
+                            <li><div class="inner-box">Combine concepts to build complex programs.</div></li>
+                            <li><div class="inner-box">Explore endless coding possibilities!</div></li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+
+            <div class="lesson-level-container" onclick="window.location.href='./adv-lessons.html'" style="cursor: pointer;">
+
+
+                <a href="{{url_for('adv_lessons')}}" style=" text-decoration: none; color: inherit;">
+                    <div class="level-header-card" style="cursor: pointer;">
+                        <h2>Advanced</h2>
+                    </div>
+                </a>
+                <div class="lesson-level" onclick="window.location.href='./adv-lessons.html'" style="cursor: pointer;">
+                    <h3>Codemon Master</h3>
+                    <div class="focus">
+                        <h4>Focus:</h4>
+                        <p>Building modular code with functions, working with data structures, and applying coding concepts to projects.</p>
+                    </div>
+                    <div class="description">
+                        <h4>Description:</h4>
+                        <ul>
+                            <li><div class="inner-box">Become a Codemon Master and unleash your coding potential!</div></li>
+                            <li><div class="inner-box">Learn functions for reusable code.</div></li>
+                            <li><div class="inner-box">Organize data with arrays & objects.</div></li>
+                            <li><div class="inner-box">Apply skills to build exciting projects.</div></li>
+                            <li><div class="inner-box">Level up to a true Codemon champion!</div></li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </section>
+        <div class="mascot">
+            <img src="{{ url_for('static', filename='assets/oak.png') }}" alt="Codemon Professor Mascot">
+        </div>
+    </main>
+</body>
+</html>

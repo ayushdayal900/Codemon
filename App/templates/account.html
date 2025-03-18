@@ -1,0 +1,172 @@
+{% extends "layout.html" %}
+{% block content %}
+<div class="content-section py-5">
+  <div class="container">
+    <!-- Profile Header Section -->
+    <div class="row align-items-center mb-5">
+      <div class="col-md-4 text-center">
+        <div class="position-relative d-inline-block">
+          <img class="rounded-circle account-img img-fluid shadow" 
+               src="{{ image_file }}" 
+               alt="Profile Picture"
+               style="width: 200px; height: 200px; object-fit: cover;">
+          <div class="position-absolute bottom-0 end-0">
+            <button class="btn btn-sm btn-primary rounded-circle p-2"
+                    style="width: 38px; height: 38px;">
+              <i class="fas fa-camera"></i>
+            </button>
+          </div>
+        </div>
+      </div>
+      <div class="col-md-8">
+        <h1 class="display-4 fw-bold mb-2">{{ current_user.username }}</h1>
+        <p class="lead text-muted">{{ current_user.email }}</p>
+      </div>
+    </div>
+
+    <!-- Account Update Form -->
+    <div class="card border-0 shadow-lg rounded-3">
+      <div class="card-body p-4 p-md-5">
+        <h2 class="card-title text-center mb-4">
+          <span class="border-bottom border-primary border-3 pb-2">Account Settings</span>
+        </h2>
+        
+        <form method="POST" action="" class="needs-validation" novalidate enctype="multipart/form-data">
+          {{ form.hidden_tag() }}
+          
+          <!-- Personal Information -->
+          <div class="row g-4 mb-4">
+            <div class="col-md-6">
+              <div class="form-floating">
+                {{ form.name(class="form-control form-control-lg" + (" is-invalid" if form.name.errors else ""), 
+                    placeholder="First Name", id="floatingName") }}
+                {{ form.name.label(for="floatingName") }}
+                {% if form.name.errors %}
+                  <div class="invalid-feedback">
+                    {% for error in form.name.errors %}
+                      <span>{{ error }}</span>
+                    {% endfor %}
+                  </div>
+                {% endif %}
+              </div>
+            </div>
+            
+            <div class="col-md-6">
+              <div class="form-floating">
+                {{ form.lname(class="form-control form-control-lg" + (" is-invalid" if form.lname.errors else ""),
+                    placeholder="Last Name", id="floatingLName") }}
+                {{ form.lname.label(for="floatingLName") }}
+                {% if form.lname.errors %}
+                  <div class="invalid-feedback">
+                    {% for error in form.lname.errors %}
+                      <span>{{ error }}</span>
+                    {% endfor %}
+                  </div>
+                {% endif %}
+              </div>
+            </div>
+          </div>
+
+          <!-- Account Information -->
+          <div class="row g-4 mb-4">
+            <div class="col-md-6">
+              <div class="form-floating">
+                {{ form.username(class="form-control form-control-lg" + (" is-invalid" if form.username.errors else ""),
+                    placeholder="Username", id="floatingUsername") }}
+                {{ form.username.label(for="floatingUsername") }}
+                {% if form.username.errors %}
+                  <div class="invalid-feedback">
+                    {% for error in form.username.errors %}
+                      <span>{{ error }}</span>
+                    {% endfor %}
+                  </div>
+                {% endif %}
+              </div>
+            </div>
+            
+            <div class="col-md-6">
+              <div class="form-floating">
+                {{ form.dob(class="form-control form-control-lg" + (" is-invalid" if form.dob.errors else ""),
+                    placeholder="Date of Birth", id="floatingDOB") }}
+                {{ form.dob.label(for="floatingDOB") }}
+                {% if form.dob.errors %}
+                  <div class="invalid-feedback">
+                    {% for error in form.dob.errors %}
+                      <span>{{ error }}</span>
+                    {% endfor %}
+                  </div>
+                {% endif %}
+              </div>
+            </div>
+          </div>
+
+          <!-- Email -->
+          <div class="form-floating mb-4">
+            {{ form.email(class="form-control form-control-lg" + (" is-invalid" if form.email.errors else ""),
+                placeholder="Email Address", id="floatingEmail") }}
+            {{ form.email.label(for="floatingEmail") }}
+            {% if form.email.errors %}
+              <div class="invalid-feedback">
+                {% for error in form.email.errors %}
+                  <span>{{ error }}</span>
+                {% endfor %}
+              </div>
+            {% endif %}
+          </div>
+          
+          <!-- picture field -->
+          <div class="row g-4 mb-4">
+            <div class="col-md-6">
+              <div class="form-floating">
+                {{ form.picture(class="form-control form-control-lg" + (" is-invalid" if form.picture.errors else ""), 
+                    placeholder="First picture", id="floatingpicture") }}
+                {{ form.picture.label(for="floatingpicture") }}
+                {% if form.picture.errors %}
+                  {% for error in form.picture.errors %}
+                    <span class="text-danger">{{ error }}</span></br>
+                  {% endfor %}
+                {% endif %}
+              </div>
+            </div>
+          </div>
+
+
+          <!-- Submit Button -->
+          <div class="d-grid gap-2">
+            {{ form.submit(class="btn btn-primary btn-lg py-3 rounded-3 text-uppercase fw-bold") }}
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- Add this to your layout.html or include in the head section -->
+<style>
+  .form-floating > .form-control {
+    height: calc(3.5rem + 2px);
+    line-height: 1.25;
+  }
+  
+  .form-floating > label {
+    padding: 1rem 0.75rem;
+  }
+  
+  .btn-primary {
+    transition: all 0.3s ease;
+  }
+  
+  .btn-primary:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+  }
+  
+  .account-img {
+    transition: all 0.3s ease;
+  }
+  
+  .account-img:hover {
+    transform: scale(1.02);
+  }
+</style>
+{% endblock content %}

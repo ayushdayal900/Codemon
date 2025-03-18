@@ -1,0 +1,266 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Settings</title>
+  </head>
+  <style>
+    /* General Reset */
+* {
+    
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'Arial', sans-serif;
+  }
+  
+  /* Settings Container */
+  .settings-container {
+    background-color: #74f6e0;
+    padding: 20px;
+    max-width: 1200px;
+    margin: 20px auto;
+    border-radius: 12px;
+    box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
+  }
+  
+  /* Header */
+  .header {
+    background-color: #59BDB3;
+    display: flex;
+    align-items: center;
+    
+  }
+
+  .settings-title img{
+    width:600px;
+    margin-left: 75%;
+  }
+  .back-button {
+    position: fixed;
+    top: 20px;
+    left: 20px;
+    z-index: 1000;
+    background: #59BDB3;
+    border: 0px;
+}
+
+.back-button img {
+    width: 70px;
+    height: auto;
+    cursor: pointer;
+    background: #59BDB3;
+}
+  .settings-title {
+    font-size: 24px;
+    color: #ffa723;
+    font-weight: bold;
+  }
+  
+  /* Profile Section */
+  .profile-section {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+  }
+  
+  .profile-details {
+    flex: 2;
+  }
+  
+  .profile-item {
+    display: flex;
+    align-items: center;
+    margin-bottom: 10px;
+  }
+  
+  .profile-item span {
+    margin-right: 10px;
+    font-weight: bold;
+  }
+  
+  .profile-item input {
+    flex: 1;
+    border: none;
+    background: #f2f2f2;
+    padding: 5px 10px;
+    border-radius: 8px;
+    cursor: not-allowed;
+  }
+  
+  .edit-icon {
+    margin-left: 10px;
+    color: #ffa723;
+    cursor: pointer;
+  }
+  
+  .profile-photo {
+    flex: 1;
+    text-align: center;
+  }
+  
+  .profile-photo img {
+    width: 80px;
+    height: 80px;
+    border-radius: 50%;
+    border: 2px solid #ffa723;
+    object-fit: cover;
+  }
+  
+  .settings-section{
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+  }
+
+  .settings-options{
+    display: flex;
+    flex:2;
+  }
+
+  .codemon {
+    margin-left: 55%;
+    flex:1;
+    object-fit: cover;
+  }
+
+  .codemon img{
+    width: 250px;
+    height: auto;
+    object-fit: cover;
+  }
+
+  hr {
+    margin: 20px 0;
+    border: none;
+    height: 1px;
+    background-color: #ffa723;
+  }
+  
+  /* Settings Options */
+  .settings-options ul {
+    list-style-type: none;
+  }
+  
+  .settings-options li {
+    margin: 10px 0;
+    font-size: 16px;
+    color: #333;
+    cursor: pointer;
+  }
+  
+  .settings-options li:hover {
+    text-decoration: underline;
+  }
+  
+  /* Music Section */
+
+  .slider-container {
+    margin-top: 10px;
+    display: flex;
+    align-items: center;
+  }
+  
+  .slider {
+    flex: 1;
+    appearance:calc();
+    height: 8px;
+    background: #f2f2f2;
+    outline: none;
+    border-radius: 12px;
+    cursor: pointer;
+  }
+  
+  .slider::-webkit-slider-thumb {
+    appearance:none;
+    width: 24px;
+    height: 24px;
+    background: url('./assets/Pokeball.png') no-repeat center/cover;
+    border: none;
+    cursor: pointer;
+  }
+  
+  .pokeball {
+    width: 30px;
+    height: 30px;
+    margin-left: 8px;
+    background: url('./assets/Pokeball.png') no-repeat center/cover;
+  }
+  
+  </style>
+  <body style="background-color: #59BDB3;">
+    
+      <div class="header">
+        <!-- back button functionality -->
+        <a href="{{url_for('router')}}" style=" text-decoration: none; color: inherit;">
+          <div class="back-button" onclick="window.location.href=''" style="cursor: pointer;">
+              <img src="{{ url_for('static', filename='assets/back_button.png') }}" alt="Back Button">
+          </div>
+      </a>
+
+
+        <h1 class="settings-title"><img src="{{ url_for('static', filename='assets/Settings.png') }}" </h1>
+      </div>
+      <div class="settings-container">
+      <div class="profile-section">
+        <div class="profile-details">
+          <p><b>Update profile :</b></p>
+          <br>
+          <div class="profile-item">
+            <span>Name :</span>
+            <input type="text" placeholder="Jhon Doe" disabled />
+            <span class="edit-icon">&#9998;</span>
+          </div>
+          <div class="profile-item">
+            <span>E-mail :</span>
+            <input type="email" placeholder="example@gmail.com" disabled />
+            <span class="edit-icon">&#9998;</span>
+          </div>
+          <div class="profile-item">
+            <span>Age :</span>
+            <input type="text" placeholder="12 years" disabled />
+            <span class="edit-icon">&#9998;</span>
+          </div>
+          <div class="profile-item">
+            <span>DOB :</span>
+            <input type="text" placeholder="DD/MM/YYYY" disabled />
+            <span class="edit-icon">&#9998;</span>
+          </div>
+        </div>
+        <div class="profile-photo">
+          <p><b>Profile Photo</b></p>
+          <br>
+          <img src="{{ url_for('static', filename='assets/Avatar.png') }}" alt="Profile Photo" />
+          <span class="edit-icon">&#9998;</span>
+        </div>
+      </div>
+
+      <hr />
+     <div class="settings-section">
+      <div class="settings-options">
+        <ul>
+          <li>&#127760; Languages</li>
+          <li>&#128462; Privacy policies/T&C</li>
+          <li>&#127911; Support/Help</li>
+          <li>&#128100; Delete my Account</li>
+          <li>&#128273; Change account password</li>
+          <li>&#10024; Give Rating</li>
+        </ul>
+        <div class="codemon">
+          <img src="{{ url_for('static', filename='assets/Firewall Fox.png') }}" alt="Codemon">
+        </div>
+        </div>
+
+      </div>
+
+      <div class="music-section">
+        <p><b>Background Music :</b></p>
+        <div class="slider-container">
+          <input type="range" min="0" max="100" value="50" class="slider" />
+          <div class="pokeball"></div>
+        </div>
+      </div>
+    </div>
+  </body>
+</html>

@@ -1,0 +1,120 @@
+body {
+  margin: 0;
+  font-family: 'Baloo Bhai 2', cursive;
+  background-color: #59BDB3;
+  color: #ffffff;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+header {
+  background-color: #59BDB3;
+  width: 100%;
+  padding: 10px 20px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.header-content {
+  display: flex;
+  align-items: center;
+  width: 100%;
+  max-width: 1200px;
+  justify-content: space-between;
+}
+
+.back-btn {
+  width:80px;
+  height: auto;
+  position: fixed;
+  top: 20px;
+  left: 20px;
+  z-index: 1000;
+  background: #59BDB3;
+  border:0px;
+}
+
+header h1 {
+  font-size: 2rem;
+  display: flex;
+  align-items: center;
+  margin: 0;
+  justify-content: center; /* Center the h1 text */
+  width: 100%; /* Make h1 take available width for centering */
+}
+
+p{
+  font-size: 1.2rem;
+  font-weight: bold;
+}
+
+.header-content img {
+  max-width: 100%;
+  height: auto;
+  margin: 0 auto;
+  display: block;
+}
+
+.pokeball {
+  width: 100px;
+  height: auto;
+}
+
+.Trainer {
+  width:450px;
+  height: auto;
+}
+
+main {
+  width: 100%;
+  max-width: 1200px;
+  padding: 20px;
+  box-sizing: border-box;
+}
+
+.badges-section {
+  margin-bottom: 30px;
+}
+
+.badges-section h2 {
+  font-size: 1.5rem;
+  margin-bottom: 20px;
+}
+
+.badges-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(120px, 1fr));
+  gap: 20px;
+}
+
+.badge {
+  text-align: center;
+  padding: 15px;
+  border-radius: 10px;
+  transition: transform 0.5s;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+
+.badge img {
+  width: 80px;
+  height: 80px;
+  margin-bottom: 10px;
+}
+
+.badge p {
+  font-size: 1.2rem;
+  margin: 0;
+}
+
+.badge:hover {
+  transform: translateY(-5px);
+}
+
+.locked {
+  opacity: 0.5;
+}
